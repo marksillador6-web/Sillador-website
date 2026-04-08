@@ -1,111 +1,214 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My portfolio</title>
-  <style>
-    /* ===== RESET ===== */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Den Sillador | Creative Portfolio</title>
 
-    /* ===== BODY ===== */
-    body {
-      font-family: "Poppins", Arial, sans-serif;
-      background: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.75)),
-                  url('0f89eee10dd0883ed50bc57d5655a102.jpg');
-      background-size: cover;
-      background-position: center;
-      background-attachment: fixed;
-      color: #fff;
-      line-height: 1.6;
-    }
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-    /* ===== HEADER ===== */
-    header {
-      background: rgba(0, 0, 0, 0.7);
-      padding: 20px 0;
-      text-align: center;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.4);
-    }
+<style>
+:root {
+  --accent: #ffcd38;
+  --accent-glow: rgba(255, 205, 56, 0.3);
+  --bg-dark: #0a0a0a;
+  --card-bg: rgba(255, 255, 255, 0.03);
+  --text-bright: #ffffff;
+  --text-muted: #a0a0a0;
+  --transition: all 0.4s ease;
+}
 
-    header h1 {
-      font-size: 2.2em;
-      letter-spacing: 1px;
-      color: #fff;
-    }
+* { margin:0; padding:0; box-sizing:border-box; }
 
-    /* ===== ABOUT SECTION ===== */
-    .about {
-      max-width: 900px;
-      margin: 50px auto;
-      text-align: center;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 20px;
-      padding: 40px;
-      backdrop-filter: blur(6px);
-    }
+body {
+  font-family:'Poppins',sans-serif;
+  background: var(--bg-dark);
+  background-image:
+    radial-gradient(circle at 10% 20%, rgba(255,205,56,0.05), transparent 40%),
+    radial-gradient(circle at 90% 80%, rgba(255,205,56,0.05), transparent 40%),
+    url('0f89eee10dd0883ed50bc57d5655a102.jpg');
+  background-size: cover;
+  color: var(--text-bright);
+}
 
-    .about img {
-      border-radius: 50%;
-      width: 200px;
-      height: 200px;
-      object-fit: cover;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-      transition: transform 0.3s;
-    }
+/* HEADER */
+header {
+  padding:80px 20px 40px;
+  text-align:center;
+}
 
-    .about img:hover {
-      transform: scale(1.05);
-    }
+header h1 {
+  font-size:3.5rem;
+  background: linear-gradient(135deg,#fff,var(--accent));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
 
-    .about p {
-      margin-top: 20px;
-      font-size: 1.05em;
-      color: #eee;
-    }
+/* ABOUT */
+.about {
+  max-width:850px;
+  margin:0 auto 80px;
+  background:var(--card-bg);
+  border-radius:40px;
+  padding:60px 40px;
+  text-align:center;
+  backdrop-filter: blur(20px);
+}
 
-    .about figcaption {
-      font-style: italic;
-      font-size: 0.9em;
-      color: #ddd;
-    }
+.about img {
+  width:220px;
+  height:220px;
+  border-radius:30px;
+  object-fit:cover;
+  border:2px solid var(--accent);
+  margin-bottom:20px;
+}
 
-    /* ===== GALLERY ===== */
-    .gallery {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      overflow-x: auto;
-      padding: 30px 10px;
-    }
+/* BUTTON */
+.download-btn {
+  padding:15px 35px;
+  border:2px solid var(--accent);
+  border-radius:50px;
+  color:var(--accent);
+  text-decoration:none;
+  transition:var(--transition);
+}
 
-    .gallery figure {
-      text-align: center;
-    }
+.download-btn:hover {
+  background:var(--accent);
+  color:black;
+}
 
-    .gallery img {
-      width: 280px;
-      height: 280px;
-      border-radius: 15px;
-      border: 2px solid #fff; /* ✅ White border added */
-      box-shadow: 0 3px 15px rgba(0,0,0,0.4);
-      transition: transform 0.3s, box-shadow 0.1s, border-color 0.1s;
-    }
+/* GALLERY (USED FOR CERTIFICATES TOO) */
+.gallery {
+  display:grid;
+  grid-template-columns: repeat(auto-fit,minmax(300px,1fr));
+  gap:30px;
+  max-width:1100px;
+  margin:0 auto;
+  padding:0 20px;
+}
 
-    .gallery img:hover {
-      transform: scale(1.05);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.6);
-      border-color: #ffcd38; /* optional hover glow */
-    }
+.gallery figure {
+  background:var(--card-bg);
+  border-radius:25px;
+  padding:15px;
+  transition:var(--transition);
+  border:1px solid rgba(255,255,255,0.05);
+}
 
-    .gallery figcaption {
-      margin-top: 10px;
-      font-size: 0.9em;
-      color: #ddd;
+.gallery figure:hover {
+  transform:translateY(-15px);
+  border-color:var(--accent);
+}
+
+.gallery img {
+  width:100%;
+  height:300px;
+  object-fit:cover;
+  border-radius:20px;
+}
+
+.gallery figcaption {
+  margin-top:15px;
+  color:var(--accent);
+  font-weight:600;
+}
+
+/* TITLE */
+.section-title {
+  text-align:center;
+  font-size:2.5rem;
+  margin:100px 0 40px;
+  color:var(--accent);
+}
+
+/* VIDEOS */
+.videos {
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:40px;
+  margin-bottom:100px;
+}
+
+iframe {
+  border-radius:20px;
+}
+
+/* FOOTER */
+footer {
+  padding:60px;
+  text-align:center;
+  color:var(--text-muted);
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>Den Sillador</h1>
+  <p style="color:var(--accent)">CREATIVE EDITOR & DESIGNER</p>
+</header>
+
+<section class="about">
+  <img src="/Den/1775633243126.jpg">
+  <p>Explore and enjoy my works and journey.</p>
+  <a href="/Den/1775635436905.jpg" class="download-btn">Download Resume</a>
+</section>
+
+<!-- ORIGINAL GALLERY -->
+<section class="gallery">
+  <figure>
+    <img src="/Den/1775634728078.jpg">
+    <figcaption>Alight Motion Edits</figcaption>
+  </figure>
+  <figure>
+    <img src="/Den/1775634711405.jpg">
+    <figcaption>Cinematic Style</figcaption>
+  </figure>
+  <figure>
+    <img src="/Den/Picsart_25-09-05_18-56-43-044.jpg">
+    <figcaption>Layered Effects</figcaption>
+  </figure>
+</section>
+
+<!-- CERTIFICATES (SAME DESIGN) -->
+<h2 class="section-title">Certificates</h2>
+
+<section class="gallery">
+  <figure>
+    <img src="/Den/cert1.jpg">
+    <figcaption>Certificate of Achievement</figcaption>
+  </figure>
+
+  <figure>
+    <img src="/Den/cert2.jpg">
+    <figcaption>Creative Design Certificate</figcaption>
+  </figure>
+
+  <figure>
+    <img src="/Den/cert3.jpg">
+    <figcaption>Editing Excellence Certificate</figcaption>
+  </figure>
+</section>
+
+<!-- VIDEOS -->
+<h2 class="section-title">Favorite Music</h2>
+
+<section class="videos">
+  <iframe width="300" height="200" src="https://www.youtube.com/embed/ApXoWvfEYVU"></iframe>
+  <iframe width="300" height="200" src="https://www.youtube.com/embed/QBgl4rVz3Ks"></iframe>
+  <iframe width="300" height="200" src="https://www.youtube.com/embed/pSZjq5CxRsk"></iframe>
+</section>
+
+<footer>
+  © 2025 DEN SILLADOR
+</footer>
+
+</body>
+</html>      color: #ddd;
     }
 
     /* ===== VIDEO SECTION ===== */
