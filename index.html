@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Denmark Sillador | Creative Portfolio</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
     /* ===== MODERN THEME VARIABLES ===== */
     :root {
@@ -15,6 +15,7 @@
       --text-bright: #ffffff;
       --text-muted: #a0a0a0;
       --transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+      --section-padding: 100px 20px;
     }
 
     /* ===== RESET & BASE ===== */
@@ -36,7 +37,8 @@
       background-position: center;
       background-attachment: fixed;
       color: var(--text-bright);
-      line-height: 1.7;
+      line-height: 1.8;
+      overflow-x: hidden;
     }
 
     /* Custom Scrollbar */
@@ -47,27 +49,28 @@
     /* ===== QUICK NAVIGATION ===== */
     .quick-nav {
       position: fixed;
-      top: 20px;
-      right: 20px;
+      top: 30px;
+      right: 30px;
       z-index: 2000;
       display: flex;
-      gap: 10px;
-      background: rgba(0, 0, 0, 0.5);
-      padding: 8px 15px;
-      border-radius: 50px;
-      backdrop-filter: blur(10px);
+      gap: 5px;
+      background: rgba(0, 0, 0, 0.7);
+      padding: 10px 20px;
+      border-radius: 100px;
+      backdrop-filter: blur(15px);
       border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
     }
 
     .nav-btn {
-      color: var(--text-bright);
+      color: var(--text-muted);
       text-decoration: none;
-      font-size: 0.65rem;
-      font-weight: 600;
+      font-size: 0.75rem;
+      font-weight: 500;
       text-transform: uppercase;
-      letter-spacing: 1px;
-      padding: 5px 10px;
-      border-radius: 20px;
+      letter-spacing: 1.5px;
+      padding: 8px 16px;
+      border-radius: 50px;
       transition: var(--transition);
       white-space: nowrap;
     }
@@ -79,29 +82,35 @@
 
     /* ===== HEADER ===== */
     header {
-      padding: 120px 20px 40px;
+      padding: 180px 20px 100px;
       text-align: center;
     }
 
     header h1 {
-      font-size: 3.5rem;
+      font-size: clamp(2.5rem, 8vw, 4.5rem);
       font-weight: 700;
-      letter-spacing: -2px;
-      background: linear-gradient(135deg, #fff 30%, var(--accent) 100%);
+      letter-spacing: -3px;
+      background: linear-gradient(135deg, #fff 40%, var(--accent) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      margin-bottom: 10px;
+      margin-bottom: 15px;
+      text-transform: uppercase;
     }
 
-    /* ===== ABOUT SECTION (Premium Glass) ===== */
+    header p {
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    /* ===== ABOUT SECTION ===== */
     .about {
-      max-width: 850px;
-      margin: 0 auto 40px;
+      max-width: 900px;
+      margin: 0 auto 120px;
       background: var(--card-bg);
-      border: 1px solid rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.08);
       border-radius: 40px;
-      padding: 60px 40px;
-      backdrop-filter: blur(20px);
+      padding: 80px 50px;
+      backdrop-filter: blur(25px);
       text-align: center;
       position: relative;
       overflow: hidden;
@@ -115,50 +124,67 @@
       width: 200%;
       height: 200%;
       background: conic-gradient(transparent, transparent, var(--accent), transparent);
-      animation: rotate 6s linear infinite;
+      animation: rotate 8s linear infinite;
       z-index: -1;
-      opacity: 0.2;
+      opacity: 0.15;
     }
 
     @keyframes rotate { 100% { transform: rotate(360deg); } }
 
     .about img {
-      border-radius: 30px;
-      width: 220px;
-      height: 220px;
+      border-radius: 40px;
+      width: 240px;
+      height: 240px;
       object-fit: cover;
       object-position: center;
-      margin-bottom: 25px;
-      box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+      margin-bottom: 35px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.6);
       border: 2px solid var(--accent);
       display: block;
       margin-left: auto;
       margin-right: auto;
       cursor: pointer;
+      transition: var(--transition);
     }
+    
+    .about img:hover { transform: scale(1.03); }
 
     .about p {
-      font-size: 1.2rem;
+      font-size: 1.15rem;
       font-weight: 300;
       color: var(--text-muted);
-      max-width: 700px;
+      max-width: 720px;
       margin: 0 auto;
+      line-height: 1.8;
     }
 
-    /* ===== GALLERY (Grid Layout) ===== */
+    /* ===== GALLERY SECTIONS ===== */
+    .section-title-container {
+      grid-column: 1 / -1;
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .section-title {
+      font-size: 2.8rem;
+      font-weight: 700;
+      letter-spacing: -1px;
+      margin-bottom: 10px;
+    }
+
     .gallery {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 30px;
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0 20px;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 40px;
+      max-width: 1200px;
+      margin: 0 auto 120px;
+      padding: 0 30px;
     }
 
     .gallery figure {
       background: var(--card-bg);
-      border-radius: 25px;
-      padding: 15px;
+      border-radius: 30px;
+      padding: 18px;
       border: 1px solid rgba(255,255,255,0.05);
       transition: var(--transition);
       display: flex;
@@ -166,31 +192,30 @@
     }
 
     .gallery figure:hover {
-      transform: translateY(-10px);
-      background: rgba(255,255,255,0.08);
+      transform: translateY(-15px);
+      background: rgba(255,255,255,0.07);
       border-color: var(--accent);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
     }
 
     .gallery img {
       width: 100%;
-      height: 280px; 
+      height: 300px; 
       object-fit: cover; 
       object-position: center;
-      border-radius: 20px;
-      filter: grayscale(20%);
+      border-radius: 22px;
+      filter: grayscale(15%);
       transition: var(--transition);
       display: block;
       cursor: pointer;
     }
 
-    .gallery figure:hover img {
-      filter: grayscale(0%);
-    }
+    .gallery figure:hover img { filter: grayscale(0%); }
 
     .gallery figcaption {
-      margin-top: 15px;
+      padding: 25px 10px 10px;
       font-weight: 600;
-      font-size: 1rem;
+      font-size: 1.1rem;
       color: var(--accent);
       text-align: center;
     }
@@ -198,62 +223,73 @@
     /* ===== VIDEO SECTION ===== */
     .music-intro {
       text-align: center;
-      margin: 100px 0 40px;
+      margin: 120px 0 60px;
+      padding: 0 20px;
     }
 
     .videos {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 40px;
-      margin-bottom: 100px;
+      gap: 30px;
+      margin-bottom: 150px;
+      padding: 0 20px;
     }
 
     .video-item iframe {
-      border-radius: 25px;
-      border: 4px solid rgba(255,255,255,0.05);
+      border-radius: 30px;
+      border: 1px solid rgba(255,255,255,0.1);
       transition: var(--transition);
       background: #000;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.3);
     }
 
     .video-item:hover iframe {
       border-color: var(--accent);
-      box-shadow: 0 0 30px var(--accent-glow);
+      box-shadow: 0 0 40px var(--accent-glow);
+      transform: scale(1.02);
     }
 
-    /* ===== PROJECTS (Modern List) ===== */
+    /* ===== PROJECTS LIST ===== */
     .links {
-      max-width: 800px;
-      margin: 80px auto;
-      padding: 40px;
-      background: linear-gradient(to bottom right, rgba(255,255,255,0.05), transparent);
-      border-radius: 30px;
+      max-width: 900px;
+      margin: 120px auto;
+      padding: 60px;
+      background: linear-gradient(145deg, rgba(255,255,255,0.03), transparent);
+      border-radius: 40px;
+      border: 1px solid rgba(255,255,255,0.05);
     }
 
     .links h2 {
-      font-size: 2.2rem;
-      margin-bottom: 30px;
+      font-size: 2.5rem;
+      margin-bottom: 40px;
       text-align: center;
+      font-weight: 700;
     }
 
     .links ul { list-style: none; }
 
     .links li {
-      margin: 15px 0;
-      padding: 20px;
+      margin: 18px 0;
+      padding: 25px 30px;
       background: rgba(255,255,255,0.02);
-      border-radius: 15px;
+      border-radius: 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-left: 4px solid transparent;
+      border-left: 5px solid transparent;
       transition: var(--transition);
     }
 
     .links li:hover {
       border-left-color: var(--accent);
-      background: rgba(255,255,255,0.08);
-      transform: scale(1.02);
+      background: rgba(255,255,255,0.06);
+      transform: translateX(10px);
+    }
+
+    .links span {
+      font-weight: 500;
+      font-size: 1.1rem;
     }
 
     .links a {
@@ -262,207 +298,233 @@
       font-weight: 700;
       text-transform: uppercase;
       font-size: 0.8rem;
-      letter-spacing: 1px;
+      letter-spacing: 2px;
+      padding: 8px 16px;
+      border: 1px solid var(--accent);
+      border-radius: 50px;
+      transition: var(--transition);
+    }
+    
+    .links a:hover {
+      background: var(--accent);
+      color: var(--bg-dark);
     }
 
-    /* ===== RESUME BUTTON ===== */
+    /* ===== BUTTONS ===== */
     .resume-download {
       text-align: center;
-      margin: 40px 0 80px;
+      margin: 60px 0 120px;
     }
 
     .btn-resume {
       display: inline-block;
-      padding: 20px 45px;
+      padding: 22px 50px;
       background: transparent;
       color: var(--accent);
       border: 2px solid var(--accent);
-      border-radius: 50px;
+      border-radius: 100px;
       text-decoration: none;
       font-weight: 700;
       letter-spacing: 2px;
       text-transform: uppercase;
       transition: var(--transition);
-      box-shadow: 0 0 15px transparent;
     }
 
     .btn-resume:hover {
       background: var(--accent);
       color: var(--bg-dark);
-      box-shadow: 0 0 30px var(--accent-glow);
-      transform: translateY(-5px);
+      box-shadow: 0 10px 40px var(--accent-glow);
+      transform: translateY(-8px);
     }
 
     /* ===== FEEDBACK FORM ===== */
     .feedback {
-      background: var(--text-bright);
-      color: var(--bg-dark);
-      padding: 60px 40px;
-      border-radius: 40px;
-      max-width: 650px;
-      margin: 100px auto;
+      background: #ffffff;
+      color: #000;
+      padding: 80px 60px;
+      border-radius: 50px;
+      max-width: 750px;
+      margin: 150px auto;
       text-align: center;
-      box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+      box-shadow: 0 40px 100px rgba(0,0,0,0.6);
     }
+
+    .feedback h2 { font-size: 2.2rem; margin-bottom: 10px; }
+    .feedback p { margin-bottom: 30px; opacity: 0.7; }
 
     textarea {
       width: 100%;
-      height: 150px;
-      border-radius: 20px;
-      border: 2px solid #eee;
-      padding: 20px;
+      height: 180px;
+      border-radius: 25px;
+      border: 2px solid #f0f0f0;
+      padding: 25px;
       margin: 20px 0;
       font-family: inherit;
-      background: #fcfcfc;
+      background: #fafafa;
+      font-size: 1rem;
       transition: var(--transition);
+      resize: none;
     }
 
     textarea:focus {
       outline: none;
       border-color: var(--accent);
+      background: #fff;
     }
 
     button {
       background: var(--bg-dark);
       color: white;
-      padding: 18px 50px;
+      padding: 20px 60px;
       border: none;
-      border-radius: 50px;
+      border-radius: 100px;
       font-weight: 700;
+      font-size: 1rem;
       cursor: pointer;
       transition: var(--transition);
+      text-transform: uppercase;
+      letter-spacing: 1px;
     }
 
     button:hover {
       background: var(--accent);
       color: var(--bg-dark);
       transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(255, 205, 56, 0.4);
     }
 
     /* ===== CHATBOT UI ===== */
     #chat-widget {
       position: fixed;
-      bottom: 30px;
-      right: 30px;
+      bottom: 40px;
+      right: 40px;
       z-index: 1000;
-      font-family: 'Poppins', sans-serif;
     }
 
     #chat-button {
-      width: 60px;
-      height: 60px;
+      width: 70px;
+      height: 70px;
       background: var(--accent);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.4);
       transition: var(--transition);
     }
 
-    #chat-button:hover { transform: scale(1.1); }
+    #chat-button:hover { transform: scale(1.1) rotate(5deg); }
 
     #chat-window {
       position: absolute;
-      bottom: 80px;
+      bottom: 90px;
       right: 0;
-      width: 320px;
-      height: 450px;
-      background: #1a1a1a;
-      border: 1px solid var(--accent);
-      border-radius: 20px;      display: none;
+      width: 350px;
+      height: 500px;
+      background: #141414;
+      border: 1px solid rgba(255, 205, 56, 0.3);
+      border-radius: 30px;
+      display: none;
       flex-direction: column;
       overflow: hidden;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+      box-shadow: 0 30px 60px rgba(0,0,0,0.8);
+      backdrop-filter: blur(20px);
     }
 
     #chat-header {
       background: var(--accent);
       color: #000;
-      padding: 15px;
+      padding: 20px;
       font-weight: 700;
       text-align: center;
+      font-size: 1rem;
     }
 
     #chat-messages {
       flex: 1;
-      padding: 15px;
+      padding: 20px;
       overflow-y: auto;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 12px;
     }
 
     .msg {
-      padding: 8px 12px;
-      border-radius: 12px;
+      padding: 12px 16px;
+      border-radius: 18px;
       max-width: 85%;
-      font-size: 0.85rem;
+      font-size: 0.9rem;
+      line-height: 1.5;
     }
 
-    .msg.bot { background: #333; color: #fff; align-self: flex-start; }
-    .msg.user { background: var(--accent); color: #000; align-self: flex-end; }
+    .msg.bot { background: #252525; color: #fff; align-self: flex-start; border-bottom-left-radius: 4px; }
+    .msg.user { background: var(--accent); color: #000; align-self: flex-end; border-bottom-right-radius: 4px; font-weight: 500; }
 
     #chat-input-area {
-      padding: 10px;
-      background: #222;
+      padding: 15px;
+      background: #1a1a1a;
       display: flex;
-      gap: 5px;
+      gap: 8px;
+      border-top: 1px solid rgba(255,255,255,0.05);
     }
 
     #chat-input {
       flex: 1;
-      background: #333;
-      border: none;
-      padding: 8px 12px;
+      background: #252525;
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 12px 18px;
       color: #fff;
-      border-radius: 10px;
+      border-radius: 50px;
       outline: none;
+      font-family: inherit;
     }
 
-    /* ===== LIGHTBOX FOR IMAGES ===== */
+    /* ===== LIGHTBOX ===== */
     #lightbox-overlay {
       position: fixed;
       top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0,0,0,0.95);
+      background: rgba(0,0,0,0.98);
       z-index: 10000;
       display: none;
       justify-content: center;
       align-items: center;
-      cursor: pointer;
+      cursor: zoom-out;
     }
-    #lightbox-overlay img {
-      max-width: 90%;
-      max-height: 90%;
-      border-radius: 10px;
-      box-shadow: 0 0 20px var(--accent);
-      cursor: default;
+    #lightbox-img {
+      max-width: 85%;
+      max-height: 85%;
+      border-radius: 15px;
+      box-shadow: 0 0 50px rgba(255, 205, 56, 0.2);
     }
     #lightbox-close {
       position: absolute;
-      top: 20px;
-      right: 30px;
-      color: var(--accent);
-      font-size: 40px;
-      font-weight: bold;
-      cursor: pointer;
+      top: 30px; right: 40px;
+      color: #fff; font-size: 45px;
+      cursor: pointer; opacity: 0.7;
     }
 
     /* ===== FOOTER ===== */
     footer {
-      padding: 60px;
+      padding: 100px 20px;
       text-align: center;
       color: var(--text-muted);
-      font-size: 0.9rem;
-      letter-spacing: 2px;
+      font-size: 0.85rem;
+      letter-spacing: 3px;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      background: rgba(0,0,0,0.3);
     }
 
+    /* ===== RESPONSIVE ===== */
     @media (max-width: 768px) {
-      .quick-nav { right: 10px; top: 10px; padding: 5px 10px; flex-wrap: wrap; justify-content: center; max-width: 250px; }
-      header h1 { font-size: 2.5rem; }
-      .about { width: 95%; padding: 40px 20px; }
+      .quick-nav { top: auto; bottom: 20px; right: 50%; transform: translateX(50%); width: 90%; justify-content: center; }
+      header h1 { font-size: 3rem; }
+      header { padding-top: 100px; }
+      .about { padding: 50px 25px; width: 92%; }
       .gallery { grid-template-columns: 1fr; }
+      #chat-widget { bottom: 90px; right: 20px; }
+      #chat-window { width: calc(100vw - 40px); bottom: 80px; }
+      .feedback { padding: 50px 25px; width: 92%; }
     }
   </style>
 </head>
@@ -472,37 +534,38 @@
     <a href="#about" class="nav-btn">About</a>
     <a href="#certs" class="nav-btn">Certs</a>
     <a href="#editing" class="nav-btn">Skills</a>
-    <a href="#music" class="nav-btn">Music</a>
     <a href="#projects" class="nav-btn">Projects</a>
+    <a href="#music" class="nav-btn">Music</a>
   </nav>
 
   <header>
     <h1>Denmark Sillador</h1>
-    <p style="color: var(--accent); letter-spacing: 3px;">CREATIVE EDITOR & DESIGNER</p>
+    <p style="color: var(--accent); letter-spacing: 5px;">CREATIVE EDITOR & DESIGNER</p>
   </header>
 
   <section class="about section-scroll" id="about">
     <img src="1775633243126.jpg" alt="Denmark Sillador">
-    <h3 style="margin-bottom: 10px; color: #fff;">"A work in progress, but always moving forward"</h3>
+    <h3 style="margin-bottom: 20px; color: #fff; font-size: 1.5rem; font-weight: 600;">"A work in progress, but always moving forward"</h3>
     <p>Explore and enjoy a collection of who I am and what I create — from my story and projects to videos and images that reflect my journey. Dive in and discover the world through my eyes.</p>
   </section>
 
   <section class="gallery section-scroll" id="certs">
-    <div style="grid-column: 1 / -1; text-align: center; margin-bottom: 20px;">
-      <h2 style="font-size: 2.5rem; color: #fff;">Certifications</h2>
+    <div class="section-title-container">
+      <h2 class="section-title">Certifications</h2>
+      <div style="width: 50px; hieght: 3px; background: var(--accent); margin: 0 auto;"></div>
     </div>
     <figure>
-      <img src="1775814905809.jpg" alt="">
-      <figcaption>March 12,2026<br><small style="color: #fff; font-weight: 300;"></small></figcaption>
+      <img src="1775814905809.jpg" alt="Certification">
+      <figcaption>March 12, 2026</figcaption>
     </figure>
     <figure>
-      <img src="1775814936379.jpg" alt="">
-      <figcaption>March 10, 2026 <br><small style="color: #fff; font-weight: 300;"></small></figcaption>
+      <img src="1775814936379.jpg" alt="Certification">
+      <figcaption>March 10, 2026</figcaption>
     </figure>
-<figure>
-  <img src="1775814936379.jpg" alt="">
-  <figcaption>March 5, 2026 <br><small style="color: #fff; font-weight: 300;"></small></figcaption>
-</figure>
+    <figure>
+      <img src="1775814936379.jpg" alt="Certification">
+      <figcaption>March 5, 2026</figcaption>
+    </figure>
   </section>
 
   <div class="resume-download">
@@ -510,47 +573,48 @@
   </div>
 
   <section class="gallery section-scroll" id="editing">
-    <div style="grid-column: 1 / -1; text-align: center; margin-bottom: 20px;">
-      <h2 style="font-size: 2.5rem; color: #fff;">Editing Skills</h2>
+    <div class="section-title-container">
+      <h2 class="section-title">Editing Skills</h2>
     </div>
     <figure>
       <img src="1775634728078.jpg" alt="TikTok edit sample">
-      <figcaption>Alight Motion Edits <br><small style="color: #fff; font-weight: 300;">36.8K+ Followers | 2.3M Likes</small></figcaption>
+      <figcaption>Alight Motion Edits <br><small style="color: #fff; font-weight: 300; opacity: 0.7;">36.8K+ Followers | 2.3M Likes</small></figcaption>
     </figure>
     <figure>
       <img src="1775634711405.jpg" alt="Alight Motion transition">
-      <figcaption>Cinematic Style <br><small style="color: #fff; font-weight: 300;">Smooth transitions & Million+ views</small></figcaption>
+      <figcaption>Cinematic Style <br><small style="color: #fff; font-weight: 300; opacity: 0.7;">Smooth transitions & Million+ views</small></figcaption>
     </figure>
     <figure>
       <img src="Picsart_25-09-05_18-56-43-044.jpg" alt="Smooth transitions">
-      <figcaption>Layered Effects <br><small style="color: #fff; font-weight: 300;">Professional layered compositions</small></figcaption>
+      <figcaption>Layered Effects <br><small style="color: #fff; font-weight: 300; opacity: 0.7;">Professional layered compositions</small></figcaption>
     </figure>
-  </section>
-
-  <div class="music-intro section-scroll" id="music">
-    <h2 style="font-size: 2.5rem;">Favorite Music</h2>
-    <p style="color: var(--text-muted); max-width: 600px; margin: 0 auto;">Music is the heartbeat of my creative process. It lifts my mood, calms my mind, and helps me visualize every edit.</p>
-  </div>
-
-  <section class="videos">
-    <div class="video-item">
-      <iframe width="320" height="240" src="https://www.youtube.com/embed/ApXoWvfEYVU" frameborder="0" allowfullscreen></iframe>
-    </div>
-    <div class="video-item">
-      <iframe width="320" height="240" src="https://www.youtube.com/embed/QBgl4rVz3Ks" frameborder="0" allowfullscreen></iframe>
-    </div>
-    <div class="video-item">
-      <iframe width="320" height="240" src="https://www.youtube.com/embed/pSZjq5CxRsk" frameborder="0" allowfullscreen></iframe>
-    </div>
   </section>
 
   <section class="links section-scroll" id="projects">
     <h2>Featured Projects</h2>
     <ul>
+      <li><span>Visual Design</span> <a href="https://drive.google.com/drive/folders/1LZkQHJGX90DTU44H280IMFBGthzh4Bbs" target="_blank">View Project →</a></li>
       <li><span>Canva Portfolio</span> <a href="https://www.canva.com/design/DAGvwoPdMPw/e11TI-kWbuTGVh05xjxojA/edit" target="_blank">View Project →</a></li>
       <li><span>My 3 AI Tools</span> <a href="https://www.canva.com/design/DAGyA90iBgI/bTa1t0yOYSilEKENZWPRGA/view" target="_blank">View Design →</a></li>
       <li><span>Figma Prototype</span> <a href="https://www.figma.com/proto/eNpd6PMjbJsAcZO8YDhKoZ?node-id=0:1" target="_blank">View Prototype →</a></li>
     </ul>
+  </section>
+
+  <div class="music-intro section-scroll" id="music">
+    <h2 style="font-size: 2.8rem; font-weight: 700;">Favorite Music</h2>
+    <p style="color: var(--text-muted); max-width: 650px; margin: 20px auto 0; font-size: 1.1rem;">Music is the heartbeat of my creative process. It lifts my mood, calms my mind, and helps me visualize every edit.</p>
+  </div>
+
+  <section class="videos">
+    <div class="video-item">
+      <iframe width="340" height="200" src="https://www.youtube.com/embed/ApXoWvfEYVU" frameborder="0" allowfullscreen></iframe>
+    </div>
+    <div class="video-item">
+      <iframe width="340" height="200" src="https://www.youtube.com/embed/QBgl4rVz3Ks" frameborder="0" allowfullscreen></iframe>
+    </div>
+    <div class="video-item">
+      <iframe width="340" height="200" src="https://www.youtube.com/embed/pSZjq5CxRsk" frameborder="0" allowfullscreen></iframe>
+    </div>
   </section>
 
   <div id="chat-widget">
@@ -560,20 +624,20 @@
         <div class="msg bot">Hello! I'm Den's AI. Ask me anything about his work, TikTok, or skills!</div>
       </div>
       <div id="chat-input-area">
-        <input type="text" id="chat-input" placeholder="Ask me something...">
-        <button id="chat-send" style="padding: 5px 15px; font-size: 0.8rem;">Send</button>
+        <input type="text" id="chat-input" placeholder="Type a message...">
+        <button id="chat-send" style="padding: 10px 20px; font-size: 0.75rem;">Send</button>
       </div>
     </div>
     <div id="chat-button">
-      <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
     </div>
   </div>
 
   <section class="feedback">
-    <h2 style="font-weight: 700;">Get In Touch</h2>
+    <h2>Get In Touch</h2>
     <p>Let's collaborate on something amazing.</p>
-    <textarea placeholder="Write your thoughts here..."></textarea>
-    <button>Submit Message</button>
+    <textarea placeholder="Tell me about your project..."></textarea>
+    <button>Send Message</button>
   </section>
 
   <div id="lightbox-overlay">
@@ -582,8 +646,8 @@
   </div>
 
   <footer>
-    &copy; 2026 DEN SILLADOR <br>
-    <span style="font-size: 0.7rem; opacity: 0.5;">BUILT WITH PRECISION & PASSION</span>
+    <div style="font-weight: 700; color: #fff; margin-bottom: 10px;">&copy; 2026 DEN SILLADOR</div>
+    <span style="font-size: 0.7rem; opacity: 0.4; text-transform: uppercase;">Built with Precision & Passion</span>
   </footer>
 
   <script>
@@ -661,12 +725,12 @@
       }
     };
 
-    /* ===== SCROLL SPY LOGIC (The Yellow Indicator Move) ===== */
+    /* ===== SCROLL SPY LOGIC ===== */
     const sections = document.querySelectorAll('.section-scroll');
     const navLinks = document.querySelectorAll('.nav-btn');
 
     const options = {
-      threshold: 0.5, // 50% of the section must be visible
+      threshold: 0.5,
       rootMargin: "0px"
     };
 
