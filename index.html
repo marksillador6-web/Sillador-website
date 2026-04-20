@@ -22,6 +22,7 @@
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+      scroll-behavior: smooth;
     }
 
     body {
@@ -43,9 +44,42 @@
     ::-webkit-scrollbar-track { background: #111; }
     ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 10px; }
 
+    /* ===== QUICK NAVIGATION ===== */
+    .quick-nav {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 2000;
+      display: flex;
+      gap: 10px;
+      background: rgba(0, 0, 0, 0.5);
+      padding: 8px 15px;
+      border-radius: 50px;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .nav-btn {
+      color: var(--text-bright);
+      text-decoration: none;
+      font-size: 0.65rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 5px 10px;
+      border-radius: 20px;
+      transition: var(--transition);
+      white-space: nowrap;
+    }
+
+    .nav-btn:hover, .nav-btn.active {
+      background: var(--accent);
+      color: var(--bg-dark);
+    }
+
     /* ===== HEADER ===== */
     header {
-      padding: 80px 20px 40px;
+      padding: 120px 20px 40px;
       text-align: center;
     }
 
@@ -139,8 +173,8 @@
 
     .gallery img {
       width: 100%;
-      height: 280px; /* Pantay na taas */
-      object-fit: cover; /* Malinis na pagkaka-crop */
+      height: 280px; 
+      object-fit: cover; 
       object-position: center;
       border-radius: 20px;
       filter: grayscale(20%);
@@ -425,6 +459,7 @@
     }
 
     @media (max-width: 768px) {
+      .quick-nav { right: 10px; top: 10px; padding: 5px 10px; flex-wrap: wrap; justify-content: center; max-width: 250px; }
       header h1 { font-size: 2.5rem; }
       .about { width: 95%; padding: 40px 20px; }
       .gallery { grid-template-columns: 1fr; }
@@ -433,18 +468,26 @@
 </head>
 <body>
 
+  <nav class="quick-nav">
+    <a href="#about" class="nav-btn">About</a>
+    <a href="#certs" class="nav-btn">Certs</a>
+    <a href="#editing" class="nav-btn">Skills</a>
+    <a href="#music" class="nav-btn">Music</a>
+    <a href="#projects" class="nav-btn">Projects</a>
+  </nav>
+
   <header>
     <h1>Denmark Sillador</h1>
     <p style="color: var(--accent); letter-spacing: 3px;">CREATIVE EDITOR & DESIGNER</p>
   </header>
 
-  <section class="about">
+  <section class="about section-scroll" id="about">
     <img src="1775633243126.jpg" alt="Denmark Sillador">
     <h3 style="margin-bottom: 10px; color: #fff;">"A work in progress, but always moving forward"</h3>
     <p>Explore and enjoy a collection of who I am and what I create — from my story and projects to videos and images that reflect my journey. Dive in and discover the world through my eyes.</p>
   </section>
 
-  <section class="gallery">
+  <section class="gallery section-scroll" id="certs">
     <div style="grid-column: 1 / -1; text-align: center; margin-bottom: 20px;">
       <h2 style="font-size: 2.5rem; color: #fff;">Certifications</h2>
     </div>
@@ -457,7 +500,7 @@
       <figcaption>March 10, 2026 <br><small style="color: #fff; font-weight: 300;"></small></figcaption>
     </figure>
 <figure>
-  <img src="1776685540849.jpg" alt="">
+  <img src="1775814936379.jpg" alt="">
   <figcaption>March 5, 2026 <br><small style="color: #fff; font-weight: 300;"></small></figcaption>
 </figure>
   </section>
@@ -466,7 +509,7 @@
     <a href="1776673543068.jpg" class="btn-resume" download>Download My Resume</a>
   </div>
 
-  <section class="gallery">
+  <section class="gallery section-scroll" id="editing">
     <div style="grid-column: 1 / -1; text-align: center; margin-bottom: 20px;">
       <h2 style="font-size: 2.5rem; color: #fff;">Editing Skills</h2>
     </div>
@@ -484,7 +527,7 @@
     </figure>
   </section>
 
-  <div class="music-intro">
+  <div class="music-intro section-scroll" id="music">
     <h2 style="font-size: 2.5rem;">Favorite Music</h2>
     <p style="color: var(--text-muted); max-width: 600px; margin: 0 auto;">Music is the heartbeat of my creative process. It lifts my mood, calms my mind, and helps me visualize every edit.</p>
   </div>
@@ -501,7 +544,7 @@
     </div>
   </section>
 
-  <section class="links">
+  <section class="links section-scroll" id="projects">
     <h2>Featured Projects</h2>
     <ul>
       <li><span>Canva Portfolio</span> <a href="https://www.canva.com/design/DAGvwoPdMPw/e11TI-kWbuTGVh05xjxojA/edit" target="_blank">View Project →</a></li>
@@ -587,22 +630,20 @@
 
     chatInput.onkeypress = (e) => { if (e.key === 'Enter') chatSend.click(); };
 
-    /* ===== NEW LIGHTBOX LOGIC ===== */
+    /* ===== LIGHTBOX LOGIC ===== */
     const lightbox = document.getElementById('lightbox-overlay');
     const lightboxImg = document.getElementById('lightbox-img');
-    const images = document.querySelectorAll('img:not(#chat-button img)'); // Grab all images
+    const images = document.querySelectorAll('img:not(#chat-button img)');
 
     images.forEach(img => {
       img.addEventListener('click', () => {
-        if(img.id === 'lightbox-img') return; // Don't trigger on the lightbox itself
+        if(img.id === 'lightbox-img') return;
         lightboxImg.src = img.src;
         lightbox.style.display = 'flex';
-        // Add a fake state to history so the back button closes the image
         history.pushState({lightbox: true}, "");
       });
     });
 
-    // Close when clicking overlay or close button
     const closeLightbox = () => {
         if(lightbox.style.display === 'flex') {
             lightbox.style.display = 'none';
@@ -614,12 +655,38 @@
 
     lightbox.onclick = closeLightbox;
 
-    // Handle Back Button
     window.onpopstate = (event) => {
       if (lightbox.style.display === 'flex') {
         lightbox.style.display = 'none';
       }
     };
+
+    /* ===== SCROLL SPY LOGIC (The Yellow Indicator Move) ===== */
+    const sections = document.querySelectorAll('.section-scroll');
+    const navLinks = document.querySelectorAll('.nav-btn');
+
+    const options = {
+      threshold: 0.5, // 50% of the section must be visible
+      rootMargin: "0px"
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.getAttribute('id');
+          navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === `#${id}`) {
+              link.classList.add('active');
+            }
+          });
+        }
+      });
+    }, options);
+
+    sections.forEach(section => {
+      observer.observe(section);
+    });
   </script>
 
 </body>
