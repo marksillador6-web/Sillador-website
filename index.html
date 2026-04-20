@@ -36,7 +36,6 @@
     }
 
     /* ===== DYNAMIC ANIMATED BACKGROUND ===== */
-    /* Mesh Gradient Layer */
     .bg-mesh {
       position: fixed;
       top: 0;
@@ -59,7 +58,6 @@
       100% { transform: scale(1) translate(0, 0); }
     }
 
-    /* Moving Particle Grid */
     body::before {
       content: "";
       position: fixed;
@@ -77,7 +75,6 @@
       to { transform: translateY(-50%); }
     }
 
-    /* New: Floating Decorative Shapes (The "Maangas" Update) */
     .floating-shapes {
       position: fixed;
       top: 0; left: 0; width: 100%; height: 100%;
@@ -397,6 +394,7 @@
       padding: 20px; margin: 20px 0; font-family: inherit; resize: none;
     }
 
+    /* ===== CHATBOT UI ===== */
     #chat-widget { position: fixed; bottom: 30px; right: 30px; z-index: 1000; }
     #chat-button {
       width: 65px; height: 65px; background: var(--accent); border-radius: 50%;
@@ -412,6 +410,23 @@
       border-radius: 30px; display: none; flex-direction: column; overflow: hidden;
       box-shadow: 0 20px 50px rgba(0,0,0,0.9);
     }
+
+    #chat-messages::-webkit-scrollbar { width: 4px; }
+    #chat-messages::-webkit-scrollbar-thumb { background: var(--accent); }
+
+    .bot-msg, .user-msg {
+      max-width: 85%;
+      padding: 10px 14px;
+      border-radius: 18px;
+      font-size: 0.85rem;
+      line-height: 1.4;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .bot-msg { background: #252525; color: #fff; align-self: flex-start; border-bottom-left-radius: 4px; }
+    .user-msg { background: var(--accent); color: #000; align-self: flex-end; border-bottom-right-radius: 4px; font-weight: 500; }
+
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
     /* ===== MOBILE ===== */
     @media (max-width: 768px) {
@@ -556,12 +571,14 @@
   <div id="chat-widget">
     <div id="chat-window">
       <div id="chat-header" style="background:var(--accent); color:#000; padding:15px; font-weight:700; text-align:center;">Den's AI Assistant</div>
-      <div id="chat-messages" style="flex:1; padding:15px; overflow-y:auto; display:flex; flex-direction:column; gap:10px; font-size:0.85rem;">
-        <div style="background:#252525; padding:10px; border-radius:15px; align-self:flex-start;">Hello! Ask me anything about Den's work.</div>
+      <div id="chat-messages" style="flex:1; padding:15px; overflow-y:auto; display:flex; flex-direction:column; gap:12px;">
+        <div class="bot-msg">Hello! I'm Denmark's virtual assistant. Ask me anything about his work, skills, or projects!</div>
       </div>
-      <div id="chat-input-area" style="padding: 15px; display: flex; gap: 5px; border-top: 1px solid #222;">
-        <input type="text" id="chat-input" placeholder="Type a message..." style="flex: 1; padding: 8px 12px; border-radius: 15px; border: none; background: #222; color: #fff;">
-        <button id="chat-send" style="background:var(--accent); color:#000; padding:5px 12px; border-radius:10px; border:none; cursor:pointer; font-weight:700;">Send</button>
+      <div id="chat-input-area" style="padding: 15px; display: flex; gap: 8px; border-top: 1px solid #222; background: #0a0a0a;">
+        <input type="text" id="chat-input" placeholder="Ask about Den..." style="flex: 1; padding: 10px 15px; border-radius: 20px; border: 1px solid #333; background: #1a1a1a; color: #fff; font-family: inherit; font-size: 0.85rem; outline: none;">
+        <button id="chat-send" style="background:var(--accent); color:#000; padding:10px 15px; border-radius:50%; border:none; cursor:pointer; font-weight:700; display:flex; align-items:center; justify-content:center;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+        </button>
       </div>
     </div>
     <div id="chat-button">
@@ -590,36 +607,74 @@
     window.addEventListener("scroll", reveal);
     reveal();
 
+    // CHATBOT LOGIC
     const chatBtn = document.getElementById('chat-button');
     const chatWin = document.getElementById('chat-window');
     const chatInput = document.getElementById('chat-input');
     const chatSend = document.getElementById('chat-send');
     const chatMsgs = document.getElementById('chat-messages');
 
-    chatBtn.onclick = () => chatWin.style.display = chatWin.style.display === 'flex' ? 'none' : 'flex';
-
-    chatSend.onclick = () => {
-      const text = chatInput.value.trim();
-      if (!text) return;
-      const userMsg = document.createElement('div');
-      userMsg.style = "background:var(--accent); color:#000; padding:10px; border-radius:15px; align-self:flex-end; animation: fadeIn 0.3s ease;";
-      userMsg.innerText = text;
-      chatMsgs.appendChild(userMsg);
-      chatInput.value = '';
-      setTimeout(() => {
-        const botMsg = document.createElement('div');
-        botMsg.style = "background:#252525; padding:10px; border-radius:15px; align-self:flex-start; animation: fadeIn 0.3s ease;";
-        botMsg.innerText = "I'm Den's AI assistant. He specializes in Alight Motion and UI Design!";
-        chatMsgs.appendChild(botMsg);
-        chatMsgs.scrollTop = chatMsgs.scrollHeight;
-      }, 600);
+    chatBtn.onclick = () => {
+        chatWin.style.display = chatWin.style.display === 'flex' ? 'none' : 'flex';
+        chatInput.focus();
     };
 
+    function addMessage(text, type) {
+        const msgDiv = document.createElement('div');
+        msgDiv.className = type === 'user' ? 'user-msg' : 'bot-msg';
+        msgDiv.innerText = text;
+        chatMsgs.appendChild(msgDiv);
+        chatMsgs.scrollTop = chatMsgs.scrollHeight;
+    }
+
+    function getBotResponse(input) {
+        const query = input.toLowerCase();
+        
+        // Response logic based on Denmark's profile
+        if (query.includes("who") || query.includes("about") || query.includes("denmark") || query.includes("den")) {
+            return "Denmark Sillador is a creative Video Editor and Designer known for his viral Alight Motion edits and modern UI designs.";
+        } 
+        else if (query.includes("skill") || query.includes("edit") || query.includes("alight motion") || query.includes("canva") || query.includes("figma")) {
+            return "Denmark specializes in Alight Motion (36K+ followers!), cinematic transitions, layered effects, UI/UX design in Figma, and professional Canva layouts.";
+        }
+        else if (query.includes("project") || query.includes("work") || query.includes("portfolio")) {
+            return "Denmark has worked on simulation projects, visual design folders, and high-engagement TikTok content with over 2.3M likes.";
+        }
+        else if (query.includes("cert") || query.includes("certification") || query.includes("resume")) {
+            return "Den has multiple certifications from March 2026. You can download his full resume directly from the 'Certifications' section of this site.";
+        }
+        else if (query.includes("music") || query.includes("song") || query.includes("favorite")) {
+            return "He enjoys a mix of modern hits and classics. Check out his 'Favorite Music' section to see his top YouTube picks!";
+        }
+        else {
+            // Default "Off-topic" response
+            return "For that specific inquiry, you can contact Denmark Sillador directly at:\n\nPhone: 09935972352\nEmail: marksillador6@gmail.com";
+        }
+    }
+
+    function handleChat() {
+        const text = chatInput.value.trim();
+        if (!text) return;
+
+        addMessage(text, 'user');
+        chatInput.value = '';
+
+        // Simulate thinking/typing
+        setTimeout(() => {
+            const response = getBotResponse(text);
+            addMessage(response, 'bot');
+        }, 600);
+    }
+
+    chatSend.onclick = handleChat;
+    chatInput.onkeypress = (e) => { if (e.key === 'Enter') handleChat(); };
+
+    // LIGHTBOX & NAVIGATION
     const lightbox = document.getElementById('lightbox-overlay');
     const lightboxImg = document.getElementById('lightbox-img');
     document.querySelectorAll('img').forEach(img => {
       img.onclick = () => {
-        if (img.id === 'lightbox-img' || img.closest('.quick-nav')) return;
+        if (img.id === 'lightbox-img' || img.closest('.quick-nav') || img.closest('#chat-widget')) return;
         lightboxImg.src = img.src;
         lightbox.style.display = 'flex';
       };
