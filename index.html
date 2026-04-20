@@ -9,9 +9,9 @@
     /* ===== MODERN THEME VARIABLES ===== */
     :root {
       --accent: #ffcd38;
-      --accent-glow: rgba(255, 205, 56, 0.3);
-      --bg-dark: #0a0a0a;
-      --card-bg: rgba(255, 255, 255, 0.03);
+      --accent-glow: rgba(255, 205, 56, 0.4);
+      --bg-dark: #050505;
+      --card-bg: rgba(20, 20, 20, 0.6);
       --text-bright: #ffffff;
       --text-muted: #a0a0a0;
       --transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
@@ -29,16 +29,81 @@
     body {
       font-family: 'Poppins', sans-serif;
       background: var(--bg-dark);
-      background-image: 
-        radial-gradient(circle at 10% 20%, rgba(255, 205, 56, 0.05) 0%, transparent 40%),
-        radial-gradient(circle at 90% 80%, rgba(255, 205, 56, 0.05) 0%, transparent 40%),
-        url('0f89eee10dd0883ed50bc57d5655a102.jpg');
-      background-size: cover;
-      background-position: center;
-      background-attachment: fixed;
       color: var(--text-bright);
       line-height: 1.8;
       overflow-x: hidden;
+      position: relative;
+    }
+
+    /* ===== DYNAMIC ANIMATED BACKGROUND ===== */
+    /* Mesh Gradient Layer */
+    .bg-mesh {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+      background: 
+        radial-gradient(at 0% 0%, rgba(255, 205, 56, 0.15) 0px, transparent 50%),
+        radial-gradient(at 100% 0%, rgba(255, 205, 56, 0.05) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(255, 205, 56, 0.1) 0px, transparent 50%),
+        radial-gradient(at 0% 100%, rgba(255, 205, 56, 0.05) 0px, transparent 50%);
+      filter: blur(80px);
+      animation: meshMove 15s ease-in-out infinite alternate;
+    }
+
+    @keyframes meshMove {
+      0% { transform: scale(1) translate(0, 0); }
+      50% { transform: scale(1.1) translate(2%, 2%); }
+      100% { transform: scale(1) translate(0, 0); }
+    }
+
+    /* Moving Particle Grid */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 200%;
+      background-image: 
+        radial-gradient(var(--accent-glow) 1px, transparent 1.5px);
+      background-size: 60px 60px;
+      opacity: 0.15;
+      z-index: -1;
+      animation: backgroundMove 40s linear infinite;
+    }
+
+    @keyframes backgroundMove {
+      from { transform: translateY(0); }
+      to { transform: translateY(-50%); }
+    }
+
+    /* New: Floating Decorative Shapes (The "Maangas" Update) */
+    .floating-shapes {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      overflow: hidden;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .shape {
+      position: absolute;
+      background: linear-gradient(45deg, var(--accent-glow), transparent);
+      border: 1px solid rgba(255, 205, 56, 0.1);
+      backdrop-filter: blur(5px);
+      border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+      animation: floatShape 20s infinite linear;
+      opacity: 0.3;
+    }
+
+    .shape:nth-child(1) { width: 300px; height: 300px; top: 10%; left: -5%; animation-duration: 25s; }
+    .shape:nth-child(2) { width: 200px; height: 200px; top: 60%; left: 85%; animation-duration: 30s; border-radius: 50%; }
+    .shape:nth-child(3) { width: 150px; height: 150px; top: 40%; left: 10%; animation-duration: 18s; }
+
+    @keyframes floatShape {
+      0% { transform: translate(0, 0) rotate(0deg); }
+      50% { transform: translate(30px, 50px) rotate(180deg); }
+      100% { transform: translate(0, 0) rotate(360deg); }
     }
 
     ::-webkit-scrollbar { width: 8px; }
@@ -52,11 +117,21 @@
       padding: 0 20px;
     }
 
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s ease-out;
+    }
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
     .section-divider {
       width: 100%;
       height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(255, 205, 56, 0.3), transparent);
-      margin: 60px 0;
+      background: linear-gradient(90deg, transparent, var(--accent-glow), transparent);
+      margin: 80px 0;
       position: relative;
     }
 
@@ -67,9 +142,10 @@
       top: 50%;
       transform: translate(-50%, -50%);
       color: var(--accent);
-      font-size: 12px;
+      font-size: 14px;
       background: var(--bg-dark);
-      padding: 0 15px;
+      padding: 0 20px;
+      text-shadow: 0 0 10px var(--accent);
     }
 
     /* ===== NAVIGATION ===== */
@@ -81,13 +157,12 @@
       z-index: 2000;
       display: flex;
       gap: 5px;
-      background: rgba(0, 0, 0, 0.7);
+      background: rgba(0, 0, 0, 0.6);
       padding: 8px 15px;
       border-radius: 100px;
-      backdrop-filter: blur(15px);
+      backdrop-filter: blur(20px);
       border: 1px solid rgba(255, 255, 255, 0.1);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-      width: fit-content;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.8);
     }
 
     .nav-btn {
@@ -97,20 +172,20 @@
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 1px;
-      padding: 8px 14px;
+      padding: 8px 16px;
       border-radius: 50px;
       transition: var(--transition);
-      white-space: nowrap;
     }
 
     .nav-btn:hover, .nav-btn.active {
       background: var(--accent);
-      color: var(--bg-dark);
+      color: #000;
+      box-shadow: 0 0 20px var(--accent-glow);
     }
 
     /* ===== HEADER ===== */
     header {
-      padding: 180px 20px 80px;
+      padding: 200px 20px 100px;
       text-align: center;
     }
 
@@ -118,18 +193,21 @@
       font-size: clamp(2.5rem, 10vw, 5rem);
       font-weight: 700;
       letter-spacing: -2px;
-      background: linear-gradient(135deg, #fff 40%, var(--accent) 100%);
+      background: linear-gradient(to bottom, #fff 40%, var(--accent) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       margin-bottom: 10px;
       text-transform: uppercase;
+      filter: drop-shadow(0 0 30px rgba(255,205,56,0.2));
     }
 
     header p {
       font-weight: 600;
       font-size: 0.9rem;
-      letter-spacing: 5px;
+      letter-spacing: 6px;
       color: var(--accent);
+      text-shadow: 0 0 15px var(--accent-glow);
+      opacity: 0.9;
     }
 
     /* ===== ABOUT SECTION ===== */
@@ -137,13 +215,18 @@
       max-width: 900px;
       margin: 0 auto 100px;
       background: var(--card-bg);
-      border: 1px solid rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,205,56,0.1);
       border-radius: 40px;
       padding: 60px 40px;
-      backdrop-filter: blur(25px);
+      backdrop-filter: blur(20px);
       text-align: center;
-      position: relative;
-      overflow: hidden;
+      transition: var(--transition);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    }
+    
+    .about:hover {
+        border-color: var(--accent);
+        box-shadow: 0 0 40px rgba(255, 205, 56, 0.15);
     }
 
     .about img {
@@ -152,14 +235,14 @@
       height: 220px;
       object-fit: cover;
       margin-bottom: 30px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.6);
       border: 2px solid var(--accent);
+      box-shadow: 0 0 30px var(--accent-glow);
       transition: var(--transition);
     }
     
     .about img:hover { transform: scale(1.05); }
 
-    /* ===== GRID SYSTEM (Certs & Skills) ===== */
+    /* ===== GRID SYSTEM ===== */
     .section-title-container {
       text-align: center;
       margin-bottom: 50px;
@@ -168,17 +251,18 @@
     .section-title {
       font-size: 2.5rem;
       font-weight: 700;
-      display: inline-block;
+      letter-spacing: -1px;
     }
 
     .section-title::after {
       content: '';
       display: block;
-      width: 50px;
+      width: 60px;
       height: 4px;
       background: var(--accent);
-      margin: 10px auto 0;
+      margin: 15px auto 0;
       border-radius: 10px;
+      box-shadow: 0 0 10px var(--accent);
     }
 
     .gallery-grid {
@@ -194,13 +278,13 @@
       padding: 15px;
       border: 1px solid rgba(255,255,255,0.05);
       transition: var(--transition);
-      height: 100%;
+      backdrop-filter: blur(10px);
     }
 
     .gallery-item:hover {
       transform: translateY(-10px);
       border-color: var(--accent);
-      background: rgba(255,255,255,0.07);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.6), 0 0 20px rgba(255, 205, 56, 0.1);
     }
 
     .gallery-item img {
@@ -221,10 +305,11 @@
     .links-container {
       max-width: 800px;
       margin: 80px auto;
-      padding: 40px;
-      background: rgba(255,255,255,0.02);
+      padding: 50px;
+      background: rgba(255, 255, 255, 0.02);
       border-radius: 40px;
-      border: 1px solid rgba(255,255,255,0.05);
+      border: 1px solid rgba(255, 205, 56, 0.05);
+      backdrop-filter: blur(10px);
     }
 
     .links-list { list-style: none; }
@@ -232,17 +317,19 @@
     .links-list li {
       margin: 15px 0;
       padding: 20px 25px;
-      background: rgba(255,255,255,0.02);
+      background: rgba(255,255,255,0.03);
       border-radius: 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       transition: var(--transition);
+      border: 1px solid transparent;
     }
 
     .links-list li:hover {
-      background: rgba(255,255,255,0.05);
-      transform: translateX(10px);
+      background: rgba(255,255,255,0.06);
+      transform: scale(1.02);
+      border-color: var(--accent-glow);
     }
 
     .btn-link {
@@ -250,34 +337,51 @@
       text-decoration: none;
       font-weight: 700;
       font-size: 0.75rem;
-      padding: 8px 16px;
+      padding: 10px 20px;
       border: 1px solid var(--accent);
       border-radius: 50px;
       transition: var(--transition);
+      background: transparent;
     }
 
     .btn-link:hover {
       background: var(--accent);
-      color: var(--bg-dark);
+      color: #000;
+      box-shadow: 0 0 20px var(--accent-glow);
     }
 
     /* ===== VIDEO SECTION ===== */
     .video-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 20px;
-      justify-items: center;
+      gap: 25px;
     }
 
     .video-item iframe {
       width: 100%;
-      max-width: 360px;
       aspect-ratio: 16 / 9;
-      border-radius: 20px;
+      border-radius: 25px;
       border: 1px solid rgba(255,255,255,0.1);
+      transition: var(--transition);
+    }
+    
+    .video-item iframe:hover {
+        border-color: var(--accent);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
     }
 
-    /* ===== CHAT & FEEDBACK ===== */
+    /* ===== CONTACT & FEEDBACK ===== */
+    .contact-info-section {
+      text-align: center;
+      padding: 50px;
+      margin-bottom: 60px;
+      background: var(--card-bg);
+      border: 1px solid rgba(255,205,56,0.1);
+      border-radius: 40px;
+    }
+    
+    .contact-details span { color: var(--accent); font-weight: 700; }
+
     .feedback {
       background: #ffffff;
       color: #000;
@@ -295,45 +399,43 @@
 
     #chat-widget { position: fixed; bottom: 30px; right: 30px; z-index: 1000; }
     #chat-button {
-      width: 60px; height: 60px; background: var(--accent); border-radius: 50%;
+      width: 65px; height: 65px; background: var(--accent); border-radius: 50%;
       display: flex; align-items: center; justify-content: center; cursor: pointer;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+      box-shadow: 0 10px 30px var(--accent-glow);
+      transition: var(--transition);
     }
+    #chat-button:hover { transform: scale(1.1) rotate(10deg); }
 
     #chat-window {
-      position: absolute; bottom: 80px; right: 0; width: 320px; height: 450px;
-      background: #141414; border: 1px solid rgba(255, 205, 56, 0.3);
-      border-radius: 25px; display: none; flex-direction: column; overflow: hidden;
+      position: absolute; bottom: 85px; right: 0; width: 320px; height: 450px;
+      background: #0f0f0f; border: 1px solid var(--accent);
+      border-radius: 30px; display: none; flex-direction: column; overflow: hidden;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.9);
     }
 
-    #chat-input-area { padding: 15px; display: flex; gap: 5px; border-top: 1px solid #222; }
-    #chat-input { flex: 1; padding: 8px 12px; border-radius: 15px; border: none; background: #222; color: #fff; }
-
-    /* ===== MOBILE ADAPTATION ===== */
+    /* ===== MOBILE ===== */
     @media (max-width: 768px) {
-      .quick-nav {
-        bottom: 20px;
-        top: auto;
-        width: 90%;
-        padding: 5px;
-      }
-      .nav-btn { font-size: 0.6rem; padding: 8px 10px; }
-      header { padding-top: 100px; }
-      .links-list li { flex-direction: column; gap: 10px; text-align: center; }
-      .about { padding: 40px 20px; }
-      .gallery-grid { grid-template-columns: 1fr; }
+      .quick-nav { bottom: 20px; top: auto; width: 90%; }
+      header { padding-top: 120px; }
+      .links-list li { flex-direction: column; gap: 15px; }
     }
 
-    /* ===== LIGHTBOX ===== */
     #lightbox-overlay {
       position: fixed; top: 0; left: 0; width: 100%; height: 100%;
       background: rgba(0,0,0,0.95); z-index: 10000; display: none;
-      justify-content: center; align-items: center;
+      justify-content: center; align-items: center; backdrop-filter: blur(15px);
     }
-    #lightbox-img { max-width: 90%; max-height: 80%; border-radius: 10px; }
+    #lightbox-img { max-width: 90%; max-height: 80%; border: 2px solid var(--accent); border-radius: 15px; }
   </style>
 </head>
 <body>
+
+  <div class="bg-mesh"></div>
+  <div class="floating-shapes">
+    <div class="shape"></div>
+    <div class="shape"></div>
+    <div class="shape"></div>
+  </div>
 
   <nav class="quick-nav">
     <a href="#about" class="nav-btn">About</a>
@@ -341,6 +443,7 @@
     <a href="#editing" class="nav-btn">Skills</a>
     <a href="#projects" class="nav-btn">Projects</a>
     <a href="#music" class="nav-btn">Music</a>
+    <a href="#contact" class="nav-btn">Contact</a>
   </nav>
 
   <header>
@@ -349,7 +452,7 @@
   </header>
 
   <div class="container">
-    <section class="about section-scroll" id="about">
+    <section class="about section-scroll reveal" id="about">
       <img src="1775633243126.jpg" alt="Denmark Sillador">
       <h3 style="margin-bottom: 15px; font-weight: 600;">"A work in progress, but always moving forward"</h3>
       <p>Explore and enjoy a collection of who I am and what I create — from my story and projects to videos and images that reflect my journey.</p>
@@ -357,7 +460,7 @@
 
     <div class="section-divider"></div>
 
-    <section class="section-scroll" id="certs">
+    <section class="section-scroll reveal" id="certs">
       <div class="section-title-container">
         <h2 class="section-title">Certifications</h2>
       </div>
@@ -376,13 +479,13 @@
           </figure>
       </div>
       <div style="text-align: center; margin-bottom: 60px;">
-        <a href="1776673543068.jpg" class="btn-link" style="padding: 15px 30px;" download>Download My Resume</a>
+        <a href="1776673543068.jpg" class="btn-link" style="padding: 15px 40px;" download>Download My Resume</a>
       </div>
     </section>
 
     <div class="section-divider"></div>
 
-    <section class="section-scroll" id="editing">
+    <section class="section-scroll reveal" id="editing">
       <div class="section-title-container">
         <h2 class="section-title">Editing Skills</h2>
       </div>
@@ -407,7 +510,7 @@
 
     <div class="section-divider"></div>
 
-    <section class="links-container section-scroll" id="projects">
+    <section class="links-container section-scroll reveal" id="projects">
       <div class="section-title-container">
           <h2 class="section-title">Featured Projects</h2>
       </div>
@@ -422,7 +525,7 @@
 
     <div class="section-divider"></div>
 
-    <section class="section-scroll" id="music" style="margin-bottom: 100px;">
+    <section class="section-scroll reveal" id="music" style="margin-bottom: 50px;">
       <div class="section-title-container">
           <h2 class="section-title">Favorite Music</h2>
       </div>
@@ -433,10 +536,20 @@
       </div>
     </section>
 
-    <section class="feedback">
+    <section class="contact-info-section section-scroll reveal" id="contact">
+      <div class="section-title-container" style="margin-bottom: 20px;">
+        <h2 class="section-title">Contact</h2>
+      </div>
+      <div class="contact-details">
+        <p>Gmail: <span>marksillador6@gmail.com</span></p>
+        <p>Number: <span>09935972352</span></p>
+      </div>
+    </section>
+
+    <section class="feedback reveal">
       <h2 style="font-weight: 700;">Get In Touch</h2>
       <textarea placeholder="Tell me about your project..."></textarea>
-      <button style="background:#000; color:#fff; padding:15px 40px; border-radius:50px; border:none; cursor:pointer; text-transform:uppercase; font-weight:700;">Send Message</button>
+      <button style="background:#000; color:#fff; padding:15px 40px; border-radius:50px; border:none; cursor:pointer; text-transform:uppercase; font-weight:700; transition: var(--transition);">Send Message</button>
     </section>
   </div>
 
@@ -446,8 +559,8 @@
       <div id="chat-messages" style="flex:1; padding:15px; overflow-y:auto; display:flex; flex-direction:column; gap:10px; font-size:0.85rem;">
         <div style="background:#252525; padding:10px; border-radius:15px; align-self:flex-start;">Hello! Ask me anything about Den's work.</div>
       </div>
-      <div id="chat-input-area">
-        <input type="text" id="chat-input" placeholder="Type a message...">
+      <div id="chat-input-area" style="padding: 15px; display: flex; gap: 5px; border-top: 1px solid #222;">
+        <input type="text" id="chat-input" placeholder="Type a message..." style="flex: 1; padding: 8px 12px; border-radius: 15px; border: none; background: #222; color: #fff;">
         <button id="chat-send" style="background:var(--accent); color:#000; padding:5px 12px; border-radius:10px; border:none; cursor:pointer; font-weight:700;">Send</button>
       </div>
     </div>
@@ -464,6 +577,19 @@
   </footer>
 
   <script>
+    function reveal() {
+      var reveals = document.querySelectorAll(".reveal");
+      for (var i = 0; i < reveals.length; i++) {
+        var windowHeight = window.innerHeight;
+        var elementTop = reveals[i].getBoundingClientRect().top;
+        if (elementTop < windowHeight - 100) {
+          reveals[i].classList.add("active");
+        }
+      }
+    }
+    window.addEventListener("scroll", reveal);
+    reveal();
+
     const chatBtn = document.getElementById('chat-button');
     const chatWin = document.getElementById('chat-window');
     const chatInput = document.getElementById('chat-input');
@@ -476,13 +602,13 @@
       const text = chatInput.value.trim();
       if (!text) return;
       const userMsg = document.createElement('div');
-      userMsg.style = "background:var(--accent); color:#000; padding:10px; border-radius:15px; align-self:flex-end;";
+      userMsg.style = "background:var(--accent); color:#000; padding:10px; border-radius:15px; align-self:flex-end; animation: fadeIn 0.3s ease;";
       userMsg.innerText = text;
       chatMsgs.appendChild(userMsg);
       chatInput.value = '';
       setTimeout(() => {
         const botMsg = document.createElement('div');
-        botMsg.style = "background:#252525; padding:10px; border-radius:15px; align-self:flex-start;";
+        botMsg.style = "background:#252525; padding:10px; border-radius:15px; align-self:flex-start; animation: fadeIn 0.3s ease;";
         botMsg.innerText = "I'm Den's AI assistant. He specializes in Alight Motion and UI Design!";
         chatMsgs.appendChild(botMsg);
         chatMsgs.scrollTop = chatMsgs.scrollHeight;
@@ -492,8 +618,8 @@
     const lightbox = document.getElementById('lightbox-overlay');
     const lightboxImg = document.getElementById('lightbox-img');
     document.querySelectorAll('img').forEach(img => {
-      img.onclick = (e) => {
-        if (img.id === 'lightbox-img') return;
+      img.onclick = () => {
+        if (img.id === 'lightbox-img' || img.closest('.quick-nav')) return;
         lightboxImg.src = img.src;
         lightbox.style.display = 'flex';
       };
@@ -509,7 +635,7 @@
           });
         }
       });
-    }, { threshold: 0.3 });
+    }, { threshold: 0.4 });
     document.querySelectorAll('.section-scroll').forEach(s => observer.observe(s));
   </script>
 </body>
