@@ -15,7 +15,7 @@
       --text-bright: #ffffff;
       --text-muted: #a0a0a0;
       --transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-      --section-padding: 120px 20px;
+      --max-width: 1200px;
     }
 
     /* ===== RESET & BASE ===== */
@@ -45,11 +45,18 @@
     ::-webkit-scrollbar-track { background: #111; }
     ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 10px; }
 
+    /* ===== LAYOUT UTILS ===== */
+    .container {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
     .section-divider {
       width: 100%;
       height: 1px;
       background: linear-gradient(90deg, transparent, rgba(255, 205, 56, 0.3), transparent);
-      margin: 40px 0;
+      margin: 60px 0;
       position: relative;
     }
 
@@ -65,29 +72,32 @@
       padding: 0 15px;
     }
 
+    /* ===== NAVIGATION ===== */
     .quick-nav {
       position: fixed;
       top: 30px;
-      right: 30px;
+      left: 50%;
+      transform: translateX(-50%);
       z-index: 2000;
       display: flex;
       gap: 5px;
       background: rgba(0, 0, 0, 0.7);
-      padding: 10px 20px;
+      padding: 8px 15px;
       border-radius: 100px;
       backdrop-filter: blur(15px);
       border: 1px solid rgba(255, 255, 255, 0.1);
       box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      width: fit-content;
     }
 
     .nav-btn {
       color: var(--text-muted);
       text-decoration: none;
-      font-size: 0.75rem;
-      font-weight: 500;
+      font-size: 0.7rem;
+      font-weight: 600;
       text-transform: uppercase;
-      letter-spacing: 1.5px;
-      padding: 8px 16px;
+      letter-spacing: 1px;
+      padding: 8px 14px;
       border-radius: 50px;
       transition: var(--transition);
       white-space: nowrap;
@@ -98,302 +108,229 @@
       color: var(--bg-dark);
     }
 
+    /* ===== HEADER ===== */
     header {
-      padding: 180px 20px 100px;
+      padding: 180px 20px 80px;
       text-align: center;
     }
 
     header h1 {
-      font-size: clamp(2.5rem, 8vw, 4.5rem);
+      font-size: clamp(2.5rem, 10vw, 5rem);
       font-weight: 700;
-      letter-spacing: -3px;
+      letter-spacing: -2px;
       background: linear-gradient(135deg, #fff 40%, var(--accent) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      margin-bottom: 15px;
+      margin-bottom: 10px;
       text-transform: uppercase;
     }
 
     header p {
       font-weight: 600;
       font-size: 0.9rem;
+      letter-spacing: 5px;
+      color: var(--accent);
     }
 
+    /* ===== ABOUT SECTION ===== */
     .about {
       max-width: 900px;
-      margin: 0 auto 120px;
+      margin: 0 auto 100px;
       background: var(--card-bg);
       border: 1px solid rgba(255,255,255,0.08);
       border-radius: 40px;
-      padding: 80px 50px;
+      padding: 60px 40px;
       backdrop-filter: blur(25px);
       text-align: center;
       position: relative;
       overflow: hidden;
     }
 
-    .about::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: conic-gradient(transparent, transparent, var(--accent), transparent);
-      animation: rotate 8s linear infinite;
-      z-index: -1;
-      opacity: 0.15;
-    }
-
-    @keyframes rotate { 100% { transform: rotate(360deg); } }
-
     .about img {
       border-radius: 40px;
-      width: 240px;
-      height: 240px;
+      width: 220px;
+      height: 220px;
       object-fit: cover;
-      object-position: center;
-      margin-bottom: 35px;
+      margin-bottom: 30px;
       box-shadow: 0 20px 40px rgba(0,0,0,0.6);
       border: 2px solid var(--accent);
-      display: block;
-      margin-left: auto;
-      margin-right: auto;
-      cursor: pointer;
       transition: var(--transition);
     }
     
-    .about img:hover { transform: scale(1.03); }
+    .about img:hover { transform: scale(1.05); }
 
-    .about p {
-      font-size: 1.15rem;
-      font-weight: 300;
-      color: var(--text-muted);
-      max-width: 720px;
-      margin: 0 auto;
-      line-height: 1.8;
-    }
-
+    /* ===== GRID SYSTEM (Certs & Skills) ===== */
     .section-title-container {
-      grid-column: 1 / -1;
       text-align: center;
-      margin-bottom: 60px;
-      position: relative;
+      margin-bottom: 50px;
     }
 
     .section-title {
-      font-size: 2.8rem;
+      font-size: 2.5rem;
       font-weight: 700;
-      letter-spacing: -1px;
-      margin-bottom: 10px;
       display: inline-block;
     }
 
     .section-title::after {
       content: '';
       display: block;
-      width: 60%;
-      height: 3px;
+      width: 50px;
+      height: 4px;
       background: var(--accent);
-      margin: 8px auto 0;
+      margin: 10px auto 0;
       border-radius: 10px;
     }
 
-    .gallery {
+    .gallery-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 40px;
-      max-width: 1200px;
-      margin: 0 auto 40px; 
-      padding: 0 30px;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin-bottom: 50px;
     }
 
-    .gallery figure {
+    .gallery-item {
       background: var(--card-bg);
-      border-radius: 30px;
-      padding: 18px;
+      border-radius: 25px;
+      padding: 15px;
       border: 1px solid rgba(255,255,255,0.05);
       transition: var(--transition);
-      display: flex;
-      flex-direction: column;
+      height: 100%;
     }
 
-    .gallery figure:hover {
-      transform: translateY(-15px);
-      background: rgba(255,255,255,0.07);
+    .gallery-item:hover {
+      transform: translateY(-10px);
       border-color: var(--accent);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+      background: rgba(255,255,255,0.07);
     }
 
-    .gallery img {
+    .gallery-item img {
       width: 100%;
-      height: 300px; 
+      height: 250px; 
       object-fit: cover; 
-      object-position: center;
-      border-radius: 22px;
-      filter: grayscale(15%);
-      transition: var(--transition);
-      display: block;
-      cursor: pointer;
+      border-radius: 20px;
     }
 
-    .gallery figcaption {
-      padding: 25px 10px 10px;
+    .gallery-item figcaption {
+      padding: 20px 5px 10px;
       font-weight: 600;
-      font-size: 1.1rem;
+      text-align: center;
       color: var(--accent);
-      text-align: center;
     }
 
-    .tiktok-action {
-      text-align: center;
-      margin-bottom: 120px;
-      padding: 20px;
-    }
-
-    .btn-view-tiktok {
-      display: inline-block;
-      padding: 12px 40px;
-      background: var(--accent);
-      color: var(--bg-dark);
-      text-decoration: none;
-      font-weight: 700;
-      border-radius: 50px;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      font-size: 0.9rem;
-      transition: var(--transition);
-    }
-
-    .videos {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 30px;
-      margin-bottom: 150px;
-      padding: 0 20px;
-    }
-
-    .video-item iframe {
-      border-radius: 30px;
-      border: 1px solid rgba(255,255,255,0.1);
-      transition: var(--transition);
-      background: #000;
-    }
-
-    .links {
-      max-width: 900px;
-      margin: 120px auto;
-      padding: 60px;
-      background: linear-gradient(145deg, rgba(255,255,255,0.03), transparent);
+    /* ===== LINKS & PROJECTS ===== */
+    .links-container {
+      max-width: 800px;
+      margin: 80px auto;
+      padding: 40px;
+      background: rgba(255,255,255,0.02);
       border-radius: 40px;
       border: 1px solid rgba(255,255,255,0.05);
     }
 
-    .links ul { 
-      list-style: none; 
-      display: block; /* Tinitiyak na naka-display ang list */
-    }
+    .links-list { list-style: none; }
 
-    .links li {
-      margin: 18px 0;
-      padding: 25px 30px;
+    .links-list li {
+      margin: 15px 0;
+      padding: 20px 25px;
       background: rgba(255,255,255,0.02);
       border-radius: 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-left: 5px solid transparent;
       transition: var(--transition);
     }
 
-    .links li:hover {
-      border-left-color: var(--accent);
-      background: rgba(255,255,255,0.06);
+    .links-list li:hover {
+      background: rgba(255,255,255,0.05);
       transform: translateX(10px);
     }
 
-    .links a {
+    .btn-link {
       color: var(--accent);
       text-decoration: none;
       font-weight: 700;
-      text-transform: uppercase;
-      font-size: 0.8rem;
-      letter-spacing: 2px;
+      font-size: 0.75rem;
       padding: 8px 16px;
       border: 1px solid var(--accent);
       border-radius: 50px;
       transition: var(--transition);
     }
-    
-    .links a:hover {
+
+    .btn-link:hover {
       background: var(--accent);
       color: var(--bg-dark);
     }
 
-    .resume-download { text-align: center; margin: 60px 0 120px; }
-    .btn-resume {
-      display: inline-block;
-      padding: 22px 50px;
-      background: transparent;
-      color: var(--accent);
-      border: 2px solid var(--accent);
-      border-radius: 100px;
-      text-decoration: none;
-      font-weight: 700;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      transition: var(--transition);
+    /* ===== VIDEO SECTION ===== */
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      justify-items: center;
     }
 
+    .video-item iframe {
+      width: 100%;
+      max-width: 360px;
+      aspect-ratio: 16 / 9;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    /* ===== CHAT & FEEDBACK ===== */
     .feedback {
       background: #ffffff;
       color: #000;
-      padding: 80px 60px;
-      border-radius: 50px;
-      max-width: 750px;
-      margin: 150px auto;
+      padding: 60px 40px;
+      border-radius: 40px;
+      max-width: 700px;
+      margin: 100px auto;
       text-align: center;
     }
 
     textarea {
-      width: 100%; height: 180px; border-radius: 25px; border: 2px solid #f0f0f0;
-      padding: 25px; margin: 20px 0; font-family: inherit;
+      width: 100%; height: 150px; border-radius: 20px; border: 2px solid #eee;
+      padding: 20px; margin: 20px 0; font-family: inherit; resize: none;
     }
 
-    #chat-widget { position: fixed; bottom: 40px; right: 40px; z-index: 1000; }
+    #chat-widget { position: fixed; bottom: 30px; right: 30px; z-index: 1000; }
     #chat-button {
-      width: 70px; height: 70px; background: var(--accent); border-radius: 50%;
+      width: 60px; height: 60px; background: var(--accent); border-radius: 50%;
       display: flex; align-items: center; justify-content: center; cursor: pointer;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.3);
     }
 
     #chat-window {
-      position: absolute; bottom: 90px; right: 0; width: 350px; height: 500px;
+      position: absolute; bottom: 80px; right: 0; width: 320px; height: 450px;
       background: #141414; border: 1px solid rgba(255, 205, 56, 0.3);
-      border-radius: 30px; display: none; flex-direction: column; overflow: hidden;
+      border-radius: 25px; display: none; flex-direction: column; overflow: hidden;
     }
 
-    #chat-header { background: var(--accent); color: #000; padding: 20px; font-weight: 700; text-align: center; }
-    #chat-messages { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; }
-    .msg { padding: 12px 16px; border-radius: 18px; max-width: 85%; font-size: 0.9rem; }
-    .msg.bot { background: #252525; color: #fff; align-self: flex-start; }
-    .msg.user { background: var(--accent); color: #000; align-self: flex-end; }
+    #chat-input-area { padding: 15px; display: flex; gap: 5px; border-top: 1px solid #222; }
+    #chat-input { flex: 1; padding: 8px 12px; border-radius: 15px; border: none; background: #222; color: #fff; }
 
+    /* ===== MOBILE ADAPTATION ===== */
+    @media (max-width: 768px) {
+      .quick-nav {
+        bottom: 20px;
+        top: auto;
+        width: 90%;
+        padding: 5px;
+      }
+      .nav-btn { font-size: 0.6rem; padding: 8px 10px; }
+      header { padding-top: 100px; }
+      .links-list li { flex-direction: column; gap: 10px; text-align: center; }
+      .about { padding: 40px 20px; }
+      .gallery-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ===== LIGHTBOX ===== */
     #lightbox-overlay {
       position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0,0,0,0.98); z-index: 10000; display: none;
+      background: rgba(0,0,0,0.95); z-index: 10000; display: none;
       justify-content: center; align-items: center;
     }
-    #lightbox-img { max-width: 85%; max-height: 85%; border-radius: 15px; }
-
-    footer { padding: 100px 20px; text-align: center; color: var(--text-muted); border-top: 1px solid rgba(255,255,255,0.05); }
-
-    @media (max-width: 768px) {
-      .quick-nav { bottom: 20px; right: 50%; transform: translateX(50%); width: 90%; justify-content: center; }
-      header h1 { font-size: 3rem; }
-      .links { padding: 30px; }
-      .links li { flex-direction: column; gap: 15px; text-align: center; }
-    }
+    #lightbox-img { max-width: 90%; max-height: 80%; border-radius: 10px; }
   </style>
 </head>
 <body>
@@ -408,118 +345,121 @@
 
   <header>
     <h1>Denmark Sillador</h1>
-    <p style="color: var(--accent); letter-spacing: 5px;">CREATIVE EDITOR & DESIGNER</p>
+    <p>CREATIVE EDITOR & DESIGNER</p>
   </header>
 
-  <section class="about section-scroll" id="about">
-    <img src="1775633243126.jpg" alt="Denmark Sillador">
-    <h3 style="margin-bottom: 20px; color: #fff; font-size: 1.5rem; font-weight: 600;">"A work in progress, but always moving forward"</h3>
-    <p>Explore and enjoy a collection of who I am and what I create — from my story and projects to videos and images that reflect my journey.</p>
-  </section>
+  <div class="container">
+    <section class="about section-scroll" id="about">
+      <img src="1775633243126.jpg" alt="Denmark Sillador">
+      <h3 style="margin-bottom: 15px; font-weight: 600;">"A work in progress, but always moving forward"</h3>
+      <p>Explore and enjoy a collection of who I am and what I create — from my story and projects to videos and images that reflect my journey.</p>
+    </section>
 
-  <div class="section-divider"></div>
+    <div class="section-divider"></div>
 
-  <section class="gallery section-scroll" id="certs">
-    <div class="section-title-container">
-      <h2 class="section-title">Certifications</h2>
-    </div>
-    <div class="gallery">
-        <figure>
-          <img src="1775814905809.jpg" alt="Certification">
-          <figcaption>March 12, 2026</figcaption>
-        </figure>
-        <figure>
-          <img src="1775814936379.jpg" alt="Certification">
-          <figcaption>March 10, 2026</figcaption>
-        </figure>
-        <figure>
-          <img src="1775814936379.jpg" alt="Certification">
-          <figcaption>March 5, 2026</figcaption>
-        </figure>
-    </div>
-  </section>
+    <section class="section-scroll" id="certs">
+      <div class="section-title-container">
+        <h2 class="section-title">Certifications</h2>
+      </div>
+      <div class="gallery-grid">
+          <figure class="gallery-item">
+            <img src="1775814905809.jpg" alt="Certification">
+            <figcaption>March 12, 2026</figcaption>
+          </figure>
+          <figure class="gallery-item">
+            <img src="1775814936379.jpg" alt="Certification">
+            <figcaption>March 10, 2026</figcaption>
+          </figure>
+          <figure class="gallery-item">
+            <img src="1775814936379.jpg" alt="Certification">
+            <figcaption>March 5, 2026</figcaption>
+          </figure>
+      </div>
+      <div style="text-align: center; margin-bottom: 60px;">
+        <a href="1776673543068.jpg" class="btn-link" style="padding: 15px 30px;" download>Download My Resume</a>
+      </div>
+    </section>
 
-  <div class="resume-download">
-    <a href="1776673543068.jpg" class="btn-resume" download>Download My Resume</a>
+    <div class="section-divider"></div>
+
+    <section class="section-scroll" id="editing">
+      <div class="section-title-container">
+        <h2 class="section-title">Editing Skills</h2>
+      </div>
+      <div class="gallery-grid">
+        <figure class="gallery-item">
+          <img src="1775634728078.jpg" alt="TikTok edit sample">
+          <figcaption>Alight Motion Edits <br><small style="color: #888;">36.8K+ Followers | 2.3M Likes</small></figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="1775634711405.jpg" alt="Alight Motion transition">
+          <figcaption>Cinematic Style <br><small style="color: #888;">Smooth transitions & Million+ views</small></figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="Picsart_25-09-05_18-56-43-044.jpg" alt="Smooth transitions">
+          <figcaption>Layered Effects <br><small style="color: #888;">Professional layered compositions</small></figcaption>
+        </figure>
+      </div>
+      <div style="text-align: center; margin-bottom: 60px;">
+        <a href="https://www.tiktok.com/@denprst14?_r=1&_t=ZS-95hGoHoTZvY" target="_blank" class="btn-link" style="background: var(--accent); color: #000; padding: 15px 40px;">View TikTok</a>
+      </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <section class="links-container section-scroll" id="projects">
+      <div class="section-title-container">
+          <h2 class="section-title">Featured Projects</h2>
+      </div>
+      <ul class="links-list">
+        <li><span>Visual Design</span> <a href="https://drive.google.com/drive/folders/1LZkQHJGX90DTU44H280IMFBGthzh4Bbs" target="_blank" class="btn-link">View Project →</a></li>
+        <li><span>Canva Portfolio</span> <a href="https://www.canva.com/design/DAGvwoPdMPw/e11TI-kWbuTGVh05xjxojA/edit" target="_blank" class="btn-link">View Project →</a></li>
+        <li><span>My 3 AI Tools</span> <a href="https://www.canva.com/design/DAGyA90iBgI/bTa1t0yOYSilEKENZWPRGA/view" target="_blank" class="btn-link">View Design →</a></li>
+        <li><span>Figma Prototype</span> <a href="https://www.figma.com/proto/eNpd6PMjbJsAcZO8YDhKoZ?node-id=0:1" target="_blank" class="btn-link">View Prototype →</a></li>
+        <li><span>Simulation Project</span> <a href="https://marksillador6-web.github.io/Sillador-Simulation/" target="_blank" class="btn-link">View Project →</a></li>
+      </ul>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <section class="section-scroll" id="music" style="margin-bottom: 100px;">
+      <div class="section-title-container">
+          <h2 class="section-title">Favorite Music</h2>
+      </div>
+      <div class="video-grid">
+          <div class="video-item"><iframe src="https://www.youtube.com/embed/ApXoWvfEYVU" frameborder="0" allowfullscreen></iframe></div>
+          <div class="video-item"><iframe src="https://www.youtube.com/embed/QBgl4rVz3Ks" frameborder="0" allowfullscreen></iframe></div>
+          <div class="video-item"><iframe src="https://www.youtube.com/embed/pSZjq5CxRsk" frameborder="0" allowfullscreen></iframe></div>
+      </div>
+    </section>
+
+    <section class="feedback">
+      <h2 style="font-weight: 700;">Get In Touch</h2>
+      <textarea placeholder="Tell me about your project..."></textarea>
+      <button style="background:#000; color:#fff; padding:15px 40px; border-radius:50px; border:none; cursor:pointer; text-transform:uppercase; font-weight:700;">Send Message</button>
+    </section>
   </div>
-
-  <div class="section-divider"></div>
-
-  <section class="section-scroll" id="editing">
-    <div class="section-title-container">
-      <h2 class="section-title">Editing Skills</h2>
-    </div>
-    <div class="gallery">
-      <figure>
-        <img src="1775634728078.jpg" alt="TikTok edit sample">
-        <figcaption>Alight Motion Edits <br><small>36.8K+ Followers | 2.3M Likes</small></figcaption>
-      </figure>
-      <figure>
-        <img src="1775634711405.jpg" alt="Alight Motion transition">
-        <figcaption>Cinematic Style <br><small>Smooth transitions & Million+ views</small></figcaption>
-      </figure>
-      <figure>
-        <img src="Picsart_25-09-05_18-56-43-044.jpg" alt="Smooth transitions">
-        <figcaption>Layered Effects <br><small>Professional layered compositions</small></figcaption>
-      </figure>
-    </div>
-    <div class="tiktok-action">
-      <a href="https://www.tiktok.com/@denprst14?_r=1&_t=ZS-95hGoHoTZvY" target="_blank" class="btn-view-tiktok">View TikTok</a>
-    </div>
-  </section>
-
-  <div class="section-divider"></div>
-
-  <section class="links section-scroll" id="projects">
-    <div class="section-title-container">
-        <h2 class="section-title">Featured Projects</h2>
-    </div>
-    <ul>
-      <li><span>Visual Design</span> <a href="https://drive.google.com/drive/folders/1LZkQHJGX90DTU44H280IMFBGthzh4Bbs" target="_blank">View Project →</a></li>
-      <li><span>Canva Portfolio</span> <a href="https://www.canva.com/design/DAGvwoPdMPw/e11TI-kWbuTGVh05xjxojA/edit" target="_blank">View Project →</a></li>
-      <li><span>My 3 AI Tools</span> <a href="https://www.canva.com/design/DAGyA90iBgI/bTa1t0yOYSilEKENZWPRGA/view" target="_blank">View Design →</a></li>
-      <li><span>Figma Prototype</span> <a href="https://www.figma.com/proto/eNpd6PMjbJsAcZO8YDhKoZ?node-id=0:1" target="_blank">View Prototype →</a></li>
-      <li><span>Simulation Project</span> <a href="https://marksillador6-web.github.io/Sillador-Simulation/" target="_blank">View Project →</a></li>
-    </ul>
-  </section>
-
-  <div class="section-divider"></div>
-
-  <section class="videos section-scroll" id="music">
-    <div class="section-title-container">
-        <h2 class="section-title">Favorite Music</h2>
-    </div>
-    <div class="videos">
-        <div class="video-item"><iframe width="340" height="200" src="https://www.youtube.com/embed/ApXoWvfEYVU" frameborder="0" allowfullscreen></iframe></div>
-        <div class="video-item"><iframe width="340" height="200" src="https://www.youtube.com/embed/QBgl4rVz3Ks" frameborder="0" allowfullscreen></iframe></div>
-        <div class="video-item"><iframe width="340" height="200" src="https://www.youtube.com/embed/pSZjq5CxRsk" frameborder="0" allowfullscreen></iframe></div>
-    </div>
-  </section>
 
   <div id="chat-widget">
     <div id="chat-window">
-      <div id="chat-header">Den's AI Assistant</div>
-      <div id="chat-messages"><div class="msg bot">Hello! Ask me anything about Den's work.</div></div>
+      <div id="chat-header" style="background:var(--accent); color:#000; padding:15px; font-weight:700; text-align:center;">Den's AI Assistant</div>
+      <div id="chat-messages" style="flex:1; padding:15px; overflow-y:auto; display:flex; flex-direction:column; gap:10px; font-size:0.85rem;">
+        <div style="background:#252525; padding:10px; border-radius:15px; align-self:flex-start;">Hello! Ask me anything about Den's work.</div>
+      </div>
       <div id="chat-input-area">
         <input type="text" id="chat-input" placeholder="Type a message...">
-        <button id="chat-send" style="background:var(--accent); color:#000; padding:5px 15px; border-radius:20px; border:none; cursor:pointer;">Send</button>
+        <button id="chat-send" style="background:var(--accent); color:#000; padding:5px 12px; border-radius:10px; border:none; cursor:pointer; font-weight:700;">Send</button>
       </div>
     </div>
     <div id="chat-button">
-      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
     </div>
   </div>
 
-  <section class="feedback">
-    <h2>Get In Touch</h2>
-    <textarea placeholder="Tell me about your project..."></textarea>
-    <button style="background:#000; color:#fff; padding:15px 40px; border-radius:50px; border:none; cursor:pointer; text-transform:uppercase;">Send Message</button>
-  </section>
-
   <div id="lightbox-overlay"><img id="lightbox-img" src=""></div>
 
-  <footer>
-    <div style="font-weight: 700; color: #fff;">&copy; 2026 DEN SILLADOR</div>
+  <footer style="padding: 60px 20px; text-align: center; color: var(--text-muted); border-top: 1px solid rgba(255,255,255,0.05);">
+    <div style="font-weight: 700; color: #fff; margin-bottom: 5px;">&copy; 2026 DEN SILLADOR</div>
     <span style="font-size: 0.7rem; opacity: 0.4;">Built with Precision & Passion</span>
   </footer>
 
@@ -536,12 +476,14 @@
       const text = chatInput.value.trim();
       if (!text) return;
       const userMsg = document.createElement('div');
-      userMsg.className = 'msg user'; userMsg.innerText = text;
+      userMsg.style = "background:var(--accent); color:#000; padding:10px; border-radius:15px; align-self:flex-end;";
+      userMsg.innerText = text;
       chatMsgs.appendChild(userMsg);
       chatInput.value = '';
       setTimeout(() => {
         const botMsg = document.createElement('div');
-        botMsg.className = 'msg bot'; botMsg.innerText = "I'm Den's AI assistant. He specializes in Alight Motion and UI Design!";
+        botMsg.style = "background:#252525; padding:10px; border-radius:15px; align-self:flex-start;";
+        botMsg.innerText = "I'm Den's AI assistant. He specializes in Alight Motion and UI Design!";
         chatMsgs.appendChild(botMsg);
         chatMsgs.scrollTop = chatMsgs.scrollHeight;
       }, 600);
@@ -550,7 +492,7 @@
     const lightbox = document.getElementById('lightbox-overlay');
     const lightboxImg = document.getElementById('lightbox-img');
     document.querySelectorAll('img').forEach(img => {
-      img.onclick = () => {
+      img.onclick = (e) => {
         if (img.id === 'lightbox-img') return;
         lightboxImg.src = img.src;
         lightbox.style.display = 'flex';
@@ -567,7 +509,7 @@
           });
         }
       });
-    }, { threshold: 0.5 });
+    }, { threshold: 0.3 });
     document.querySelectorAll('.section-scroll').forEach(s => observer.observe(s));
   </script>
 </body>
