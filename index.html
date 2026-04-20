@@ -62,7 +62,7 @@
     /* ===== ABOUT SECTION (Premium Glass) ===== */
     .about {
       max-width: 850px;
-      margin: 0 auto 80px;
+      margin: 0 auto 40px;
       background: var(--card-bg);
       border: 1px solid rgba(255,255,255,0.1);
       border-radius: 40px;
@@ -93,9 +93,13 @@
       width: 220px;
       height: 220px;
       object-fit: cover;
+      object-position: center;
       margin-bottom: 25px;
       box-shadow: 0 15px 35px rgba(0,0,0,0.5);
       border: 2px solid var(--accent);
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     .about p {
@@ -122,21 +126,25 @@
       padding: 15px;
       border: 1px solid rgba(255,255,255,0.05);
       transition: var(--transition);
+      display: flex;
+      flex-direction: column;
     }
 
     .gallery figure:hover {
-      transform: translateY(-15px);
+      transform: translateY(-10px);
       background: rgba(255,255,255,0.08);
       border-color: var(--accent);
     }
 
     .gallery img {
       width: 100%;
-      height: 300px;
-      object-fit: cover;
+      height: 280px; /* Pantay na taas */
+      object-fit: cover; /* Malinis na pagkaka-crop */
+      object-position: center;
       border-radius: 20px;
-      filter: grayscale(30%);
+      filter: grayscale(20%);
       transition: var(--transition);
+      display: block;
     }
 
     .gallery figure:hover img {
@@ -148,6 +156,7 @@
       font-weight: 600;
       font-size: 1rem;
       color: var(--accent);
+      text-align: center;
     }
 
     /* ===== VIDEO SECTION ===== */
@@ -168,6 +177,7 @@
       border-radius: 25px;
       border: 4px solid rgba(255,255,255,0.05);
       transition: var(--transition);
+      background: #000;
     }
 
     .video-item:hover iframe {
@@ -222,7 +232,7 @@
     /* ===== RESUME BUTTON ===== */
     .resume-download {
       text-align: center;
-      margin: 60px 0;
+      margin: 40px 0 80px;
     }
 
     .btn-resume {
@@ -387,7 +397,8 @@
 
     @media (max-width: 768px) {
       header h1 { font-size: 2.5rem; }
-      .about { width: 90%; }
+      .about { width: 95%; padding: 40px 20px; }
+      .gallery { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -403,6 +414,24 @@
     <h3 style="margin-bottom: 10px; color: #fff;">"A work in progress, but always moving forward"</h3>
     <p>Explore and enjoy a collection of who I am and what I create — from my story and projects to videos and images that reflect my journey. Dive in and discover the world through my eyes.</p>
   </section>
+
+  <section class="gallery">
+    <div style="grid-column: 1 / -1; text-align: center; margin-bottom: 20px;">
+      <h2 style="font-size: 2.5rem; color: #fff;">Certifications</h2>
+    </div>
+    <figure>
+      <img src="1775814905809.jpg" alt="Certificate 1">
+      <figcaption>CISCO Networking Fundamentals<br><small style="color: #fff; font-weight: 300;">Foundational skills in IT infrastructure</small></figcaption>
+    </figure>
+    <figure>
+      <img src="1775633243126.jpg" alt="Certificate 2">
+      <figcaption>Integrative Foundation For Innovative Systematic Solution <br><small style="color: #fff; font-weight: 300;">Advanced problem-solving & innovation</small></figcaption>
+    </figure>
+  </section>
+
+  <div class="resume-download">
+    <a href="1775633243126.jpg" class="btn-resume" download>Download My Resume</a>
+  </div>
 
   <section class="gallery">
     <figure>
@@ -435,24 +464,6 @@
       <iframe width="320" height="240" src="https://www.youtube.com/embed/pSZjq5CxRsk" frameborder="0" allowfullscreen></iframe>
     </div>
   </section>
-
-  <section class="gallery" style="margin-top: 80px;">
-    <div style="grid-column: 1 / -1; text-align: center; margin-bottom: 20px;">
-      <h2 style="font-size: 2.5rem; color: #fff;">Certifications</h2>
-    </div>
-    <figure>
-      <img src="1775814905809.jpg" alt="Certificate 1">
-      <figcaption>CISCO Networking Fundamentals<br><small style="color: #fff; font-weight: 300;">March 10, 2026</small></figcaption>
-    </figure>
-    <figure>
-      <img src="1775814936379.jpg" alt="Certificate 2">
-      <figcaption>Integrative Foundation For Innovative Systematic Solution <br><small style="color: #fff; font-weight: 300;">March 12, 2026</small></figcaption>
-    </figure>
-  </section>
-
-  <div class="resume-download">
-    <a href="1775633243126.jpg" class="btn-resume" download>Download My Resume</a>
-  </div>
 
   <section class="links">
     <h2>Featured Projects</h2>
@@ -487,12 +498,11 @@
   </section>
 
   <footer>
-    &copy; 2025 DEN SILLADOR <br>
+    &copy; 2026 DEN SILLADOR <br>
     <span style="font-size: 0.7rem; opacity: 0.5;">BUILT WITH PRECISION & PASSION</span>
   </footer>
 
   <script>
-    // CHATBOT LOGIC
     const chatBtn = document.getElementById('chat-button');
     const chatWin = document.getElementById('chat-window');
     const chatInput = document.getElementById('chat-input');
@@ -513,8 +523,6 @@
 
     function getDenResponse(input) {
       const q = input.toLowerCase();
-      
-      // LOGIC ENGINE - DEN'S DATA
       if (q.includes("who is denmark") || q.includes("who is den")) return "Denmark Sillador is a Creative Editor and Designer known for high-quality Alight Motion edits and cinematic transitions.";
       if (q.includes("tiktok") || q.includes("followers")) return "Den has a massive TikTok presence with over 36.8K followers and 2.3 million likes!";
       if (q.includes("skills") || q.includes("tools")) return "He specializes in Alight Motion, Canva, Figma, and CISCO Networking.";
@@ -522,17 +530,14 @@
       if (q.includes("music")) return "Music is Den's heartbeat; it drives his creative process and helps him visualize his edits.";
       if (q.includes("hello") || q.includes("hi")) return "Hi there! How can I help you learn more about Den today?";
       if (q.includes("contact") || q.includes("hire")) return "You can reach out via the 'Get In Touch' form at the bottom of this page!";
-      
       return "That's a great question! While I'm still learning everything about Den, I know he's a work in progress always moving forward. Try asking about his TikTok stats or skills!";
     }
 
     chatSend.onclick = () => {
       const text = chatInput.value.trim();
       if (!text) return;
-      
       addMessage(text, 'user');
       chatInput.value = '';
-      
       setTimeout(() => {
         const reply = getDenResponse(text);
         addMessage(reply, 'bot');
