@@ -100,6 +100,7 @@
       display: block;
       margin-left: auto;
       margin-right: auto;
+      cursor: pointer;
     }
 
     .about p {
@@ -145,6 +146,7 @@
       filter: grayscale(20%);
       transition: var(--transition);
       display: block;
+      cursor: pointer;
     }
 
     .gallery figure:hover img {
@@ -385,6 +387,34 @@
       outline: none;
     }
 
+    /* ===== LIGHTBOX FOR IMAGES ===== */
+    #lightbox-overlay {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.95);
+      z-index: 10000;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+    }
+    #lightbox-overlay img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 10px;
+      box-shadow: 0 0 20px var(--accent);
+      cursor: default;
+    }
+    #lightbox-close {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      color: var(--accent);
+      font-size: 40px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
     /* ===== FOOTER ===== */
     footer {
       padding: 60px;
@@ -499,6 +529,11 @@
     <button>Submit Message</button>
   </section>
 
+  <div id="lightbox-overlay">
+    <span id="lightbox-close">&times;</span>
+    <img id="lightbox-img" src="" alt="Enlarged View">
+  </div>
+
   <footer>
     &copy; 2026 DEN SILLADOR <br>
     <span style="font-size: 0.7rem; opacity: 0.5;">BUILT WITH PRECISION & PASSION</span>
@@ -547,6 +582,40 @@
     };
 
     chatInput.onkeypress = (e) => { if (e.key === 'Enter') chatSend.click(); };
+
+    /* ===== NEW LIGHTBOX LOGIC ===== */
+    const lightbox = document.getElementById('lightbox-overlay');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const images = document.querySelectorAll('img:not(#chat-button img)'); // Grab all images
+
+    images.forEach(img => {
+      img.addEventListener('click', () => {
+        if(img.id === 'lightbox-img') return; // Don't trigger on the lightbox itself
+        lightboxImg.src = img.src;
+        lightbox.style.display = 'flex';
+        // Add a fake state to history so the back button closes the image
+        history.pushState({lightbox: true}, "");
+      });
+    });
+
+    // Close when clicking overlay or close button
+    const closeLightbox = () => {
+        if(lightbox.style.display === 'flex') {
+            lightbox.style.display = 'none';
+            if(history.state && history.state.lightbox) {
+                history.back();
+            }
+        }
+    };
+
+    lightbox.onclick = closeLightbox;
+
+    // Handle Back Button
+    window.onpopstate = (event) => {
+      if (lightbox.style.display === 'flex') {
+        lightbox.style.display = 'none';
+      }
+    };
   </script>
 
 </body>
