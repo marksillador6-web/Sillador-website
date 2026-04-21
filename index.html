@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Denmark Sillador | Creative Portfolio</title>
+  <title>Denmark Sillador</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
     /* ===== MODERN THEME VARIABLES ===== */
@@ -477,7 +477,7 @@
 
     <section class="section-scroll reveal" id="certs">
       <div class="section-title-container">
-        <h2 class="section-title">Certifications</h2>
+        <h2 class="section-title">Certificate</h2>
       </div>
       <div class="gallery-grid">
           <figure class="gallery-item">
@@ -530,6 +530,8 @@
           <h2 class="section-title">Featured Projects</h2>
       </div>
       <ul class="links-list">
+        <li><span>E-commerce Store</span> <a href="https://www.figma.com/design/164ZB5ttt1CzeLifKfiP3U/My-figma-e-commerce--Denmark-Sillador-bsit-2a?m=auto&t=waRi6o5a1jltRzlw-6" target="_blank" class="btn-link">View Store →</a></li>
+        <li><span>Figma Website</span> <a href="https://www.figma.com/design/0lcwzNu7zRGZKhFwWarFrd/PDF-to-Figma--Community-?node-id=1-2&t=A65MAGaPDBySIFoD-1" target="_blank" class="btn-link">View Design →</a></li>
         <li><span>Visual Design</span> <a href="https://drive.google.com/drive/folders/1LZkQHJGX90DTU44H280IMFBGthzh4Bbs" target="_blank" class="btn-link">View Project →</a></li>
         <li><span>Canva Portfolio</span> <a href="https://www.canva.com/design/DAGvwoPdMPw/e11TI-kWbuTGVh05xjxojA/edit" target="_blank" class="btn-link">View Project →</a></li>
         <li><span>My 3 AI Tools</span> <a href="https://www.canva.com/design/DAGyA90iBgI/bTa1t0yOYSilEKENZWPRGA/view" target="_blank" class="btn-link">View Design →</a></li>
@@ -631,7 +633,6 @@
     function getBotResponse(input) {
         const query = input.toLowerCase();
         
-        // Response logic based on Denmark's profile
         if (query.includes("who") || query.includes("about") || query.includes("denmark") || query.includes("den")) {
             return "Denmark Sillador is a creative Video Editor and Designer known for his viral Alight Motion edits and modern UI designs.";
         } 
@@ -639,7 +640,7 @@
             return "Denmark specializes in Alight Motion (36K+ followers!), cinematic transitions, layered effects, UI/UX design in Figma, and professional Canva layouts.";
         }
         else if (query.includes("project") || query.includes("work") || query.includes("portfolio")) {
-            return "Denmark has worked on simulation projects, visual design folders, and high-engagement TikTok content with over 2.3M likes.";
+            return "Denmark has worked on e-commerce sites, Figma web designs, simulation projects, and high-engagement TikTok content.";
         }
         else if (query.includes("cert") || query.includes("certification") || query.includes("resume")) {
             return "Den has multiple certifications from March 2026. You can download his full resume directly from the 'Certifications' section of this site.";
@@ -648,7 +649,6 @@
             return "He enjoys a mix of modern hits and classics. Check out his 'Favorite Music' section to see his top YouTube picks!";
         }
         else {
-            // Default "Off-topic" response
             return "For that specific inquiry, you can contact Denmark Sillador directly at:\n\nPhone: 09935972352\nEmail: marksillador6@gmail.com";
         }
     }
@@ -660,7 +660,6 @@
         addMessage(text, 'user');
         chatInput.value = '';
 
-        // Simulate thinking/typing
         setTimeout(() => {
             const response = getBotResponse(text);
             addMessage(response, 'bot');
