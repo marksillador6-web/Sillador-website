@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Denmark Sillador</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     /* ===== MODERN THEME VARIABLES ===== */
     :root {
@@ -221,11 +222,6 @@
       box-shadow: 0 20px 50px rgba(0,0,0,0.5);
     }
     
-    .about:hover {
-        border-color: var(--accent);
-        box-shadow: 0 0 40px rgba(255, 205, 56, 0.15);
-    }
-
     .about img {
       border-radius: 40px;
       width: 220px;
@@ -236,10 +232,8 @@
       box-shadow: 0 0 30px var(--accent-glow);
       transition: var(--transition);
     }
-    
-    .about img:hover { transform: scale(1.05); }
 
-    /* ===== SLIDESHOW STYLES ===== */
+    /* ===== SLIDESHOW STYLES (Certs & Editing) ===== */
     .slideshow-container {
       max-width: 800px;
       position: relative;
@@ -249,14 +243,16 @@
       border-radius: 30px;
       border: 1px solid rgba(255, 205, 56, 0.1);
       overflow: hidden;
+      touch-action: pan-y;
     }
 
-    .cert-slide {
+    .slide-item {
       display: none;
       animation: fadeEffect 0.8s ease-in-out;
+      text-align: center;
     }
 
-    .cert-slide img {
+    .slide-item img {
       width: 100%;
       height: 450px;
       object-fit: contain;
@@ -290,11 +286,6 @@
     .next { right: 0; }
     .prev { left: 0; }
 
-    .prev:hover, .next:hover {
-      background-color: var(--accent);
-      color: #000;
-    }
-
     .dot-container {
       text-align: center;
       padding: 20px;
@@ -311,9 +302,9 @@
       transition: background-color 0.6s ease;
     }
 
-    .dot.active, .dot:hover { background-color: var(--accent); }
+    .dot.active { background-color: var(--accent); }
 
-    /* ===== GRID SYSTEM (Skills) ===== */
+    /* ===== GRID SYSTEM & TITLES ===== */
     .section-title-container {
       text-align: center;
       margin-bottom: 50px;
@@ -333,43 +324,6 @@
       background: var(--accent);
       margin: 15px auto 0;
       border-radius: 10px;
-      box-shadow: 0 0 10px var(--accent);
-    }
-
-    .gallery-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 30px;
-      margin-bottom: 50px;
-    }
-
-    .gallery-item {
-      background: var(--card-bg);
-      border-radius: 25px;
-      padding: 15px;
-      border: 1px solid rgba(255,255,255,0.05);
-      transition: var(--transition);
-      backdrop-filter: blur(10px);
-    }
-
-    .gallery-item:hover {
-      transform: translateY(-10px);
-      border-color: var(--accent);
-      box-shadow: 0 15px 40px rgba(0,0,0,0.6), 0 0 20px rgba(255, 205, 56, 0.1);
-    }
-
-    .gallery-item img {
-      width: 100%;
-      height: 250px; 
-      object-fit: cover; 
-      border-radius: 20px;
-    }
-
-    .gallery-item figcaption {
-      padding: 20px 5px 10px;
-      font-weight: 600;
-      text-align: center;
-      color: var(--accent);
     }
 
     /* ===== LINKS & PROJECTS ===== */
@@ -394,13 +348,6 @@
       justify-content: space-between;
       align-items: center;
       transition: var(--transition);
-      border: 1px solid transparent;
-    }
-
-    .links-list li:hover {
-      background: rgba(255,255,255,0.06);
-      transform: scale(1.02);
-      border-color: var(--accent-glow);
     }
 
     .btn-link {
@@ -412,13 +359,11 @@
       border: 1px solid var(--accent);
       border-radius: 50px;
       transition: var(--transition);
-      background: transparent;
     }
 
     .btn-link:hover {
       background: var(--accent);
       color: #000;
-      box-shadow: 0 0 20px var(--accent-glow);
     }
 
     /* ===== VIDEO SECTION ===== */
@@ -433,39 +378,61 @@
       aspect-ratio: 16 / 9;
       border-radius: 25px;
       border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    /* ===== CONTACT SECTION UPDATED ===== */
+    .contact-card {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      max-width: 500px;
+      margin: 0 auto;
+      text-align: left;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 25px;
+      border: 1px solid rgba(255, 205, 56, 0.1);
       transition: var(--transition);
-    }
-    
-    .video-item iframe:hover {
-        border-color: var(--accent);
-        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      text-decoration: none;
+      color: inherit;
     }
 
-    /* ===== CONTACT & FEEDBACK ===== */
-    .contact-info-section {
-      text-align: center;
-      padding: 50px;
-      margin-bottom: 60px;
-      background: var(--card-bg);
-      border: 1px solid rgba(255,205,56,0.1);
-      border-radius: 40px;
+    .contact-item:hover {
+      background: rgba(255, 205, 56, 0.1);
+      transform: translateX(10px);
+      border-color: var(--accent);
     }
-    
-    .contact-details span { color: var(--accent); font-weight: 700; }
 
-    .feedback {
-      background: #ffffff;
+    .contact-icon {
+      width: 50px;
+      height: 50px;
+      background: var(--accent);
       color: #000;
-      padding: 60px 40px;
-      border-radius: 40px;
-      max-width: 700px;
-      margin: 100px auto;
-      text-align: center;
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      box-shadow: 0 0 15px var(--accent-glow);
     }
 
-    textarea {
-      width: 100%; height: 150px; border-radius: 20px; border: 2px solid #eee;
-      padding: 20px; margin: 20px 0; font-family: inherit; resize: none;
+    .contact-text h4 {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 2px;
+    }
+
+    .contact-text p {
+      font-weight: 600;
+      color: var(--text-bright);
     }
 
     /* ===== CHATBOT UI ===== */
@@ -473,47 +440,36 @@
     #chat-button {
       width: 65px; height: 65px; background: var(--accent); border-radius: 50%;
       display: flex; align-items: center; justify-content: center; cursor: pointer;
-      box-shadow: 0 10px 30px var(--accent-glow);
-      transition: var(--transition);
     }
-    #chat-button:hover { transform: scale(1.1) rotate(10deg); }
 
     #chat-window {
       position: absolute; bottom: 85px; right: 0; width: 320px; height: 450px;
       background: #0f0f0f; border: 1px solid var(--accent);
       border-radius: 30px; display: none; flex-direction: column; overflow: hidden;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.9);
     }
-
-    #chat-messages::-webkit-scrollbar { width: 4px; }
-    #chat-messages::-webkit-scrollbar-thumb { background: var(--accent); }
 
     .bot-msg, .user-msg {
       max-width: 85%;
       padding: 10px 14px;
       border-radius: 18px;
       font-size: 0.85rem;
-      line-height: 1.4;
-      animation: fadeIn 0.3s ease;
+      margin: 5px 0;
     }
 
-    .bot-msg { background: #252525; color: #fff; align-self: flex-start; border-bottom-left-radius: 4px; }
-    .user-msg { background: var(--accent); color: #000; align-self: flex-end; border-bottom-right-radius: 4px; font-weight: 500; }
-
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    .bot-msg { background: #252525; color: #fff; align-self: flex-start; }
+    .user-msg { background: var(--accent); color: #000; align-self: flex-end; }
 
     /* ===== MOBILE ===== */
     @media (max-width: 768px) {
-      .quick-nav { bottom: 20px; top: auto; width: 90%; }
+      .quick-nav { bottom: 20px; top: auto; width: 95%; overflow-x: auto; }
+      .slide-item img { height: 300px; }
       header { padding-top: 120px; }
-      .links-list li { flex-direction: column; gap: 15px; }
-      .cert-slide img { height: 300px; }
     }
 
     #lightbox-overlay {
       position: fixed; top: 0; left: 0; width: 100%; height: 100%;
       background: rgba(0,0,0,0.95); z-index: 10000; display: none;
-      justify-content: center; align-items: center; backdrop-filter: blur(15px);
+      justify-content: center; align-items: center;
     }
     #lightbox-img { max-width: 90%; max-height: 80%; border: 2px solid var(--accent); border-radius: 15px; }
   </style>
@@ -555,33 +511,33 @@
         <h2 class="section-title">Certifications</h2>
       </div>
 
-      <div class="slideshow-container">
-        <div class="cert-slide">
+      <div class="slideshow-container" id="cert-slideshow">
+        <div class="slide-item cert-slide">
           <img src="1775814905809.jpg" alt="Certification 1">
-          <div style="text-align: center; color: var(--accent); padding-top: 10px; font-weight: 600;">Certificate 1</div>
+          <div style="color: var(--accent); padding-top: 10px; font-weight: 600;">Certificate 1</div>
         </div>
-        <div class="cert-slide">
+        <div class="slide-item cert-slide">
           <img src="1775814936379.jpg" alt="Certification 2">
-          <div style="text-align: center; color: var(--accent); padding-top: 10px; font-weight: 600;">Certificate 2</div>
+          <div style="color: var(--accent); padding-top: 10px; font-weight: 600;">Certificate 2</div>
         </div>
-        <div class="cert-slide">
+        <div class="slide-item cert-slide">
           <img src="1776685540849.jpg" alt="Certification 3">
-          <div style="text-align: center; color: var(--accent); padding-top: 10px; font-weight: 600;">Certificate 3</div>
+          <div style="color: var(--accent); padding-top: 10px; font-weight: 600;">Certificate 3</div>
         </div>
-        <div class="cert-slide">
-          <img src="1775635436905.jpg" alt="Certification 4">
-          <div style="text-align: center; color: var(--accent); padding-top: 10px; font-weight: 600;">Certificate 4</div>
+        <div class="slide-item cert-slide">
+          <img src="1776673543068.jpg" alt="Certification 4">
+          <div style="color: var(--accent); padding-top: 10px; font-weight: 600;">Certificate 4</div>
         </div>
 
-        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-        <a class="next" onclick="plusSlides(1)">&#10095;</a>
+        <a class="prev" onclick="changeSlide('cert-slideshow', -1)">&#10094;</a>
+        <a class="next" onclick="changeSlide('cert-slideshow', 1)">&#10095;</a>
       </div>
 
-      <div class="dot-container">
-        <span class="dot" onclick="currentSlide(1)"></span>
-        <span class="dot" onclick="currentSlide(2)"></span>
-        <span class="dot" onclick="currentSlide(3)"></span>
-        <span class="dot" onclick="currentSlide(4)"></span>
+      <div class="dot-container" id="cert-dots">
+        <span class="dot" onclick="setSlide('cert-slideshow', 0)"></span>
+        <span class="dot" onclick="setSlide('cert-slideshow', 1)"></span>
+        <span class="dot" onclick="setSlide('cert-slideshow', 2)"></span>
+        <span class="dot" onclick="setSlide('cert-slideshow', 3)"></span>
       </div>
 
       <div style="text-align: center; margin-bottom: 60px;">
@@ -595,21 +551,32 @@
       <div class="section-title-container">
         <h2 class="section-title">Editing Skills</h2>
       </div>
-      <div class="gallery-grid">
-        <figure class="gallery-item">
+      
+      <div class="slideshow-container" id="edit-slideshow">
+        <div class="slide-item edit-slide">
           <img src="1775634728078.jpg" alt="TikTok edit sample">
-          <figcaption>Alight Motion Edits <br><small style="color: #888;">36.8K+ Followers | 2.3M Likes</small></figcaption>
-        </figure>
-        <figure class="gallery-item">
+          <div style="color: var(--accent); padding-top: 15px; font-weight: 600;">Alight Motion Edits<br><small style="color: #888;">36.8K+ Followers | 2.3M Likes</small></div>
+        </div>
+        <div class="slide-item edit-slide">
           <img src="1775634711405.jpg" alt="Alight Motion transition">
-          <figcaption>Cinematic Style <br><small style="color: #888;">Smooth transitions & Million+ views</small></figcaption>
-        </figure>
-        <figure class="gallery-item">
+          <div style="color: var(--accent); padding-top: 15px; font-weight: 600;">Cinematic Style<br><small style="color: #888;">Smooth transitions & Million+ views</small></div>
+        </div>
+        <div class="slide-item edit-slide">
           <img src="Picsart_25-09-05_18-56-43-044.jpg" alt="Smooth transitions">
-          <figcaption>Layered Effects <br><small style="color: #888;">Professional layered compositions</small></figcaption>
-        </figure>
+          <div style="color: var(--accent); padding-top: 15px; font-weight: 600;">Layered Effects<br><small style="color: #888;">Professional layered compositions</small></div>
+        </div>
+
+        <a class="prev" onclick="changeSlide('edit-slideshow', -1)">&#10094;</a>
+        <a class="next" onclick="changeSlide('edit-slideshow', 1)">&#10095;</a>
       </div>
-      <div style="text-align: center; margin-bottom: 60px;">
+
+      <div class="dot-container" id="edit-dots">
+        <span class="dot" onclick="setSlide('edit-slideshow', 0)"></span>
+        <span class="dot" onclick="setSlide('edit-slideshow', 1)"></span>
+        <span class="dot" onclick="setSlide('edit-slideshow', 2)"></span>
+      </div>
+
+      <div style="text-align: center; margin: 40px 0 60px;">
         <a href="https://www.tiktok.com/@denprst14?_r=1&_t=ZS-95hGoHoTZvY" target="_blank" class="btn-link" style="background: var(--accent); color: #000; padding: 15px 40px;">View TikTok</a>
       </div>
     </section>
@@ -621,6 +588,7 @@
           <h2 class="section-title">Featured Projects</h2>
       </div>
       <ul class="links-list">
+        <li><span>Facebook Profile</span> <a href="https://www.facebook.com/marksillador6" target="_blank" class="btn-link">Connect →</a></li>
         <li><span>E-commerce Store</span> <a href="https://www.figma.com/design/164ZB5ttt1CzeLifKfiP3U/My-figma-e-commerce--Denmark-Sillador-bsit-2a?m=auto&t=waRi6o5a1jltRzlw-6" target="_blank" class="btn-link">View Store →</a></li>
         <li><span>Figma Website</span> <a href="https://www.figma.com/design/0lcwzNu7zRGZKhFwWarFrd/PDF-to-Figma--Community-?node-id=1-2&t=A65MAGaPDBySIFoD-1" target="_blank" class="btn-link">View Design →</a></li>
         <li><span>Visual Design</span> <a href="https://drive.google.com/drive/folders/1LZkQHJGX90DTU44H280IMFBGthzh4Bbs" target="_blank" class="btn-link">View Project →</a></li>
@@ -645,34 +613,56 @@
       </div>
     </section>
 
-    <section class="contact-info-section section-scroll reveal" id="contact">
-      <div class="section-title-container" style="margin-bottom: 20px;">
-        <h2 class="section-title">Contact</h2>
+    <div class="section-divider"></div>
+
+    <section class="section-scroll reveal" id="contact">
+      <div class="section-title-container">
+        <h2 class="section-title">Contact Information</h2>
       </div>
-      <div class="contact-details">
-        <p>Gmail: <span>marksillador6@gmail.com</span></p>
-        <p>Number: <span>09935972352</span></p>
+      
+      <div class="contact-card">
+        <a href="mailto:marksillador6@gmail.com" class="contact-item">
+          <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+          <div class="contact-text">
+            <h4>Email Address</h4>
+            <p>marksillador6@gmail.com</p>
+          </div>
+        </a>
+
+        <a href="tel:09935972352" class="contact-item">
+          <div class="contact-icon"><i class="fas fa-phone"></i></div>
+          <div class="contact-text">
+            <h4>Phone Number</h4>
+            <p>09935972352</p>
+          </div>
+        </a>
+
+        <a href="https://www.facebook.com/densillador" target="_blank" class="contact-item">
+          <div class="contact-icon"><i class="fab fa-facebook-f"></i></div>
+          <div class="contact-text">
+            <h4>Facebook</h4>
+            <p>Denmark Sillador</p>
+          </div>
+        </a>
       </div>
     </section>
 
-    <section class="feedback reveal">
+    <section class="feedback reveal" style="background:#fff; color:#000; padding:60px 40px; border-radius:40px; max-width:700px; margin:100px auto; text-align:center;">
       <h2 style="font-weight: 700;">Get In Touch</h2>
-      <textarea placeholder="Tell me about your project..."></textarea>
-      <button style="background:#000; color:#fff; padding:15px 40px; border-radius:50px; border:none; cursor:pointer; text-transform:uppercase; font-weight:700; transition: var(--transition);">Send Message</button>
+      <textarea style="width:100%; height:150px; border-radius:20px; border:2px solid #eee; padding:20px; margin:20px 0; font-family:inherit; resize:none;" placeholder="Tell me about your project..."></textarea>
+      <button style="background:#000; color:#fff; padding:15px 40px; border-radius:50px; border:none; cursor:pointer; text-transform:uppercase; font-weight:700;">Send Message</button>
     </section>
   </div>
 
   <div id="chat-widget">
     <div id="chat-window">
-      <div id="chat-header" style="background:var(--accent); color:#000; padding:15px; font-weight:700; text-align:center;">Den's AI Assistant</div>
-      <div id="chat-messages" style="flex:1; padding:15px; overflow-y:auto; display:flex; flex-direction:column; gap:12px;">
-        <div class="bot-msg">Hello! I'm Denmark's virtual assistant. Ask me anything about his work, skills, or projects!</div>
+      <div style="background:var(--accent); color:#000; padding:15px; font-weight:700; text-align:center;">Den's AI Assistant</div>
+      <div id="chat-messages" style="flex:1; padding:15px; overflow-y:auto; display:flex; flex-direction:column; gap:12px; background:#0a0a0a;">
+        <div class="bot-msg">Hello! I'm Denmark's virtual assistant. Ask me anything about his work!</div>
       </div>
-      <div id="chat-input-area" style="padding: 15px; display: flex; gap: 8px; border-top: 1px solid #222; background: #0a0a0a;">
-        <input type="text" id="chat-input" placeholder="Ask about Den..." style="flex: 1; padding: 10px 15px; border-radius: 20px; border: 1px solid #333; background: #1a1a1a; color: #fff; font-family: inherit; font-size: 0.85rem; outline: none;">
-        <button id="chat-send" style="background:var(--accent); color:#000; padding:10px 15px; border-radius:50%; border:none; cursor:pointer; font-weight:700; display:flex; align-items:center; justify-content:center;">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
-        </button>
+      <div style="padding: 15px; display: flex; gap: 8px; border-top: 1px solid #222; background: #0a0a0a;">
+        <input type="text" id="chat-input" placeholder="Ask about Den..." style="flex: 1; padding: 10px 15px; border-radius: 20px; border: 1px solid #333; background: #1a1a1a; color: #fff; outline: none;">
+        <button id="chat-send" style="background:var(--accent); border:none; border-radius:50%; width:40px; height:40px; cursor:pointer;">➔</button>
       </div>
     </div>
     <div id="chat-button">
@@ -688,128 +678,85 @@
   </footer>
 
   <script>
+    // REVEAL ANIMATION
     function reveal() {
       var reveals = document.querySelectorAll(".reveal");
-      for (var i = 0; i < reveals.length; i++) {
-        var windowHeight = window.innerHeight;
-        var elementTop = reveals[i].getBoundingClientRect().top;
-        if (elementTop < windowHeight - 100) {
-          reveals[i].classList.add("active");
-        }
-      }
+      reveals.forEach(el => {
+        if (el.getBoundingClientRect().top < window.innerHeight - 100) el.classList.add("active");
+      });
     }
     window.addEventListener("scroll", reveal);
     reveal();
 
-    // SLIDESHOW LOGIC
-    let slideIndex = 1;
-    showSlides(slideIndex);
-
-    function plusSlides(n) {
-      showSlides(slideIndex += n);
-    }
-
-    function currentSlide(n) {
-      showSlides(slideIndex = n);
-    }
-
-    function showSlides(n) {
-      let i;
-      let slides = document.getElementsByClassName("cert-slide");
-      let dots = document.getElementsByClassName("dot");
-      if (n > slides.length) {slideIndex = 1}    
-      if (n < 1) {slideIndex = slides.length}
-      for (i = 0; i < slides.length; i++) {
-        slides[i].style.display = "none";  
-      }
-      for (i = 0; i < dots.length; i++) {
-        dots[i].className = dots[i].className.replace(" active", "");
-      }
-      slides[slideIndex-1].style.display = "block";  
-      dots[slideIndex-1].className += " active";
-    }
-
-    // CHATBOT LOGIC
-    const chatBtn = document.getElementById('chat-button');
-    const chatWin = document.getElementById('chat-window');
-    const chatInput = document.getElementById('chat-input');
-    const chatSend = document.getElementById('chat-send');
-    const chatMsgs = document.getElementById('chat-messages');
-
-    chatBtn.onclick = () => {
-        chatWin.style.display = chatWin.style.display === 'flex' ? 'none' : 'flex';
-        chatInput.focus();
+    // UNIVERSAL SLIDESHOW LOGIC
+    const slideStates = {
+      'cert-slideshow': { current: 0, class: 'cert-slide', dots: 'cert-dots' },
+      'edit-slideshow': { current: 0, class: 'edit-slide', dots: 'edit-dots' }
     };
 
-    function addMessage(text, type) {
-        const msgDiv = document.createElement('div');
-        msgDiv.className = type === 'user' ? 'user-msg' : 'bot-msg';
-        msgDiv.innerText = text;
-        chatMsgs.appendChild(msgDiv);
-        chatMsgs.scrollTop = chatMsgs.scrollHeight;
+    function updateSlideshow(id) {
+      const state = slideStates[id];
+      const slides = document.querySelectorAll(`#${id} .slide-item`);
+      const dots = document.querySelectorAll(`#${state.dots} .dot`);
+      
+      slides.forEach((s, i) => s.style.display = i === state.current ? 'block' : 'none');
+      dots.forEach((d, i) => d.classList.toggle('active', i === state.current));
     }
 
-    function getBotResponse(input) {
-        const query = input.toLowerCase();
-        
-        if (query.includes("who") || query.includes("about") || query.includes("denmark") || query.includes("den")) {
-            return "Denmark Sillador is a creative Video Editor and Designer known for his viral Alight Motion edits and modern UI designs.";
-        } 
-        else if (query.includes("skill") || query.includes("edit") || query.includes("alight motion") || query.includes("canva") || query.includes("figma")) {
-            return "Denmark specializes in Alight Motion (36K+ followers!), cinematic transitions, layered effects, UI/UX design in Figma, and professional Canva layouts.";
-        }
-        else if (query.includes("project") || query.includes("work") || query.includes("portfolio")) {
-            return "Denmark has worked on e-commerce sites, Figma web designs, simulation projects, and high-engagement TikTok content.";
-        }
-        else if (query.includes("cert") || query.includes("certification") || query.includes("resume")) {
-            return "Den has multiple certifications from March 2026. You can download his full resume directly from the 'Certifications' section of this site.";
-        }
-        else if (query.includes("music") || query.includes("song") || query.includes("favorite")) {
-            return "He enjoys a mix of modern hits and classics. Check out his 'Favorite Music' section to see his top YouTube picks!";
-        }
-        else {
-            return "For that specific inquiry, you can contact Denmark Sillador directly at:\n\nPhone: 09935972352\nEmail: marksillador6@gmail.com";
-        }
+    function changeSlide(id, n) {
+      const state = slideStates[id];
+      const count = document.querySelectorAll(`#${id} .slide-item`).length;
+      state.current = (state.current + n + count) % count;
+      updateSlideshow(id);
     }
 
-    function handleChat() {
-        const text = chatInput.value.trim();
-        if (!text) return;
-
-        addMessage(text, 'user');
-        chatInput.value = '';
-
-        setTimeout(() => {
-            const response = getBotResponse(text);
-            addMessage(response, 'bot');
-        }, 600);
+    function setSlide(id, n) {
+      slideStates[id].current = n;
+      updateSlideshow(id);
     }
 
-    chatSend.onclick = handleChat;
-    chatInput.onkeypress = (e) => { if (e.key === 'Enter') handleChat(); };
+    // Initialize
+    Object.keys(slideStates).forEach(id => updateSlideshow(id));
 
-    // LIGHTBOX & NAVIGATION
+    // SWIPE SUPPORT
+    function addSwipe(id) {
+      let startX = 0;
+      const el = document.getElementById(id);
+      el.addEventListener('touchstart', e => startX = e.touches[0].clientX);
+      el.addEventListener('touchend', e => {
+        let diff = startX - e.changedTouches[0].clientX;
+        if (Math.abs(diff) > 50) changeSlide(id, diff > 0 ? 1 : -1);
+      });
+    }
+    addSwipe('cert-slideshow');
+    addSwipe('edit-slideshow');
+
+    // LIGHTBOX
     const lightbox = document.getElementById('lightbox-overlay');
     const lightboxImg = document.getElementById('lightbox-img');
-    document.querySelectorAll('img').forEach(img => {
+    document.querySelectorAll('.slide-item img, .about img').forEach(img => {
       img.onclick = () => {
-        if (img.id === 'lightbox-img' || img.closest('.quick-nav') || img.closest('#chat-widget')) return;
         lightboxImg.src = img.src;
         lightbox.style.display = 'flex';
       };
     });
     lightbox.onclick = () => lightbox.style.display = 'none';
 
+    // CHATBOT
+    const chatBtn = document.getElementById('chat-button');
+    const chatWin = document.getElementById('chat-window');
+    chatBtn.onclick = () => chatWin.style.display = chatWin.style.display === 'flex' ? 'none' : 'flex';
+
+    // NAV ACTIVE STATE
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          const id = entry.target.getAttribute('id');
           document.querySelectorAll('.nav-btn').forEach(link => {
-            link.classList.toggle('active', link.getAttribute('href') === `#${id}`);
+            link.classList.toggle('active', link.getAttribute('href') === `#${entry.target.id}`);
           });
         }
       });
-    }, { threshold: 0.4 });
+    }, { threshold: 0.5 });
     document.querySelectorAll('.section-scroll').forEach(s => observer.observe(s));
   </script>
 </body>
