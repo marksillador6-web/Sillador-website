@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Denmark Sillador</title>
+  <title>Denmark Sillador | Portfolio</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
@@ -233,7 +233,7 @@
       transition: var(--transition);
     }
 
-    /* ===== SLIDESHOW STYLES (Certs & Editing) ===== */
+    /* ===== SLIDESHOW STYLES ===== */
     .slideshow-container {
       max-width: 800px;
       position: relative;
@@ -366,21 +366,7 @@
       color: #000;
     }
 
-    /* ===== VIDEO SECTION ===== */
-    .video-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 25px;
-    }
-
-    .video-item iframe {
-      width: 100%;
-      aspect-ratio: 16 / 9;
-      border-radius: 25px;
-      border: 1px solid rgba(255,255,255,0.1);
-    }
-
-    /* ===== CONTACT SECTION UPDATED ===== */
+    /* ===== CONTACT SECTION ===== */
     .contact-card {
       display: flex;
       flex-direction: column;
@@ -440,12 +426,14 @@
     #chat-button {
       width: 65px; height: 65px; background: var(--accent); border-radius: 50%;
       display: flex; align-items: center; justify-content: center; cursor: pointer;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.5);
     }
 
     #chat-window {
       position: absolute; bottom: 85px; right: 0; width: 320px; height: 450px;
       background: #0f0f0f; border: 1px solid var(--accent);
       border-radius: 30px; display: none; flex-direction: column; overflow: hidden;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.8);
     }
 
     .bot-msg, .user-msg {
@@ -454,10 +442,12 @@
       border-radius: 18px;
       font-size: 0.85rem;
       margin: 5px 0;
+      line-height: 1.4;
+      word-wrap: break-word;
     }
 
-    .bot-msg { background: #252525; color: #fff; align-self: flex-start; }
-    .user-msg { background: var(--accent); color: #000; align-self: flex-end; }
+    .bot-msg { background: #252525; color: #fff; align-self: flex-start; border-bottom-left-radius: 2px; }
+    .user-msg { background: var(--accent); color: #000; align-self: flex-end; border-bottom-right-radius: 2px; }
 
     /* ===== MOBILE ===== */
     @media (max-width: 768px) {
@@ -648,8 +638,12 @@
 
     <section class="feedback reveal" style="background:#fff; color:#000; padding:60px 40px; border-radius:40px; max-width:700px; margin:100px auto; text-align:center;">
       <h2 style="font-weight: 700;">Get In Touch</h2>
-      <textarea style="width:100%; height:150px; border-radius:20px; border:2px solid #eee; padding:20px; margin:20px 0; font-family:inherit; resize:none;" placeholder="Tell me about your project..."></textarea>
-      <button style="background:#000; color:#fff; padding:15px 40px; border-radius:50px; border:none; cursor:pointer; text-transform:uppercase; font-weight:700;">Send Message</button>
+      <form action="https://formspree.io/f/marksillador6@gmail.com" method="POST" id="contact-form">
+        <input type="email" name="email" required style="width:100%; border-radius:15px; border:2px solid #eee; padding:15px; margin-bottom:15px; font-family:inherit;" placeholder="Your Email Address">
+        <textarea name="message" required style="width:100%; height:150px; border-radius:20px; border:2px solid #eee; padding:20px; margin-bottom:20px; font-family:inherit; resize:none;" placeholder="Tell me about your project..."></textarea>
+        <button type="submit" style="background:#000; color:#fff; padding:15px 40px; border-radius:50px; border:none; cursor:pointer; text-transform:uppercase; font-weight:700; width: 100%;">Send Message</button>
+      </form>
+      <p id="form-status" style="margin-top: 15px; font-weight: 600;"></p>
     </section>
   </div>
 
@@ -657,10 +651,10 @@
     <div id="chat-window">
       <div style="background:var(--accent); color:#000; padding:15px; font-weight:700; text-align:center;">Den's AI Assistant</div>
       <div id="chat-messages" style="flex:1; padding:15px; overflow-y:auto; display:flex; flex-direction:column; gap:12px; background:#0a0a0a;">
-        <div class="bot-msg">Hello! I'm Denmark's virtual assistant. Ask me anything about his work!</div>
+        <div class="bot-msg">Hello! I'm Denmark's virtual assistant. Ask me anything about his work, skills, or projects!</div>
       </div>
       <div style="padding: 15px; display: flex; gap: 8px; border-top: 1px solid #222; background: #0a0a0a;">
-        <input type="text" id="chat-input" placeholder="Ask about Den..." style="flex: 1; padding: 10px 15px; border-radius: 20px; border: 1px solid #333; background: #1a1a1a; color: #fff; outline: none;">
+        <input type="text" id="chat-input" placeholder="Type here..." style="flex: 1; padding: 10px 15px; border-radius: 20px; border: 1px solid #333; background: #1a1a1a; color: #fff; outline: none;">
         <button id="chat-send" style="background:var(--accent); border:none; border-radius:50%; width:40px; height:40px; cursor:pointer;">➔</button>
       </div>
     </div>
@@ -714,21 +708,7 @@
       updateSlideshow(id);
     }
 
-    // Initialize
     Object.keys(slideStates).forEach(id => updateSlideshow(id));
-
-    // SWIPE SUPPORT
-    function addSwipe(id) {
-      let startX = 0;
-      const el = document.getElementById(id);
-      el.addEventListener('touchstart', e => startX = e.touches[0].clientX);
-      el.addEventListener('touchend', e => {
-        let diff = startX - e.changedTouches[0].clientX;
-        if (Math.abs(diff) > 50) changeSlide(id, diff > 0 ? 1 : -1);
-      });
-    }
-    addSwipe('cert-slideshow');
-    addSwipe('edit-slideshow');
 
     // LIGHTBOX
     const lightbox = document.getElementById('lightbox-overlay');
@@ -741,11 +721,6 @@
     });
     lightbox.onclick = () => lightbox.style.display = 'none';
 
-    // CHATBOT
-    const chatBtn = document.getElementById('chat-button');
-    const chatWin = document.getElementById('chat-window');
-    chatBtn.onclick = () => chatWin.style.display = chatWin.style.display === 'flex' ? 'none' : 'flex';
-
     // NAV ACTIVE STATE
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -757,6 +732,77 @@
       });
     }, { threshold: 0.5 });
     document.querySelectorAll('.section-scroll').forEach(s => observer.observe(s));
+
+    // --- CHATBOT LOGIC ---
+    const chatBtn = document.getElementById('chat-button');
+    const chatWin = document.getElementById('chat-window');
+    const chatInput = document.getElementById('chat-input');
+    const chatSend = document.getElementById('chat-send');
+    const chatMessages = document.getElementById('chat-messages');
+
+    chatBtn.onclick = () => chatWin.style.display = chatWin.style.display === 'flex' ? 'none' : 'flex';
+
+    const getBotResponse = (input) => {
+      const s = input.toLowerCase();
+      if (s.includes("who") || s.includes("denmark") || s.includes("den")) return "Denmark Sillador is a Creative Editor & Designer specialized in cinematic video editing and UI/UX projects.";
+      if (s.includes("skill") || s.includes("edit")) return "Denmark is a pro at Alight Motion, cinematic transitions, and layered effects. He has over 36K TikTok followers!";
+      if (s.includes("contact") || s.includes("email") || s.includes("fb")) return "You can reach Den via email at marksillador6@gmail.com or find him on Facebook as Denmark Sillador.";
+      if (s.includes("project") || s.includes("work")) return "He has worked on E-commerce stores, Figma designs, and Alight Motion video tutorials. Check the Projects section!";
+      if (s.includes("hello") || s.includes("hi")) return "Hi there! How can I help you learn more about Denmark's work?";
+      return "That's an interesting question! For specific details about that, it's best to message Denmark directly via the contact form.";
+    };
+
+    function sendMessage() {
+      const text = chatInput.value.trim();
+      if (!text) return;
+
+      // User Message
+      const uDiv = document.createElement('div');
+      uDiv.className = 'user-msg';
+      uDiv.textContent = text;
+      chatMessages.appendChild(uDiv);
+      chatInput.value = '';
+
+      // Bot Response
+      setTimeout(() => {
+        const bDiv = document.createElement('div');
+        bDiv.className = 'bot-msg';
+        bDiv.textContent = getBotResponse(text);
+        chatMessages.appendChild(bDiv);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }, 600);
+    }
+
+    chatSend.onclick = sendMessage;
+    chatInput.onkeypress = (e) => { if(e.key === 'Enter') sendMessage(); };
+
+    // --- CONTACT FORM HANDLER ---
+    const contactForm = document.getElementById('contact-form');
+    const formStatus = document.getElementById('form-status');
+
+    contactForm.onsubmit = async (e) => {
+      e.preventDefault();
+      const data = new FormData(contactForm);
+      formStatus.textContent = "Sending...";
+      
+      fetch(contactForm.action, {
+        method: 'POST',
+        body: data,
+        headers: { 'Accept': 'application/json' }
+      }).then(response => {
+        if (response.ok) {
+          formStatus.style.color = "green";
+          formStatus.textContent = "Message sent successfully! Den will get back to you.";
+          contactForm.reset();
+        } else {
+          formStatus.style.color = "red";
+          formStatus.textContent = "Oops! There was a problem sending your message.";
+        }
+      }).catch(error => {
+        formStatus.style.color = "red";
+        formStatus.textContent = "Error connecting to server.";
+      });
+    };
   </script>
 </body>
 </html>
