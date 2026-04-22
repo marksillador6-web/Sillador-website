@@ -188,10 +188,9 @@
     }
 
     header h1 {
-      /* REDUCED SIZE AS REQUESTED */
-      font-size: clamp(2rem, 8vw, 4rem); 
+      font-size: clamp(2.5rem, 10vw, 5rem);
       font-weight: 700;
-      letter-spacing: -1px;
+      letter-spacing: -2px;
       background: linear-gradient(to bottom, #fff 40%, var(--accent) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -429,7 +428,9 @@
       background: var(--accent);
       color: #000;
       border-radius: 15px;
-      display: flex; align-items: center; justify-content: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       font-size: 1.5rem;
       box-shadow: 0 0 15px var(--accent-glow);
     }
@@ -450,7 +451,7 @@
     /* ===== CHATBOT UI ===== */
     #chat-widget { 
       position: fixed; 
-      bottom: 80px; 
+      bottom: 80px; /* Elevated as requested */
       right: 30px; 
       z-index: 1000; 
     }
@@ -486,7 +487,7 @@
       .slide-item img { height: 300px; }
       header { padding-top: 120px; }
       .video-grid { grid-template-columns: 1fr; }
-      #chat-widget { bottom: 100px; }
+      #chat-widget { bottom: 100px; } /* Additional elevation for mobile */
     }
 
     #lightbox-overlay {
@@ -496,6 +497,7 @@
     }
     #lightbox-img { max-width: 90%; max-height: 80%; border: 2px solid var(--accent); border-radius: 15px; }
 
+    /* New Text Box Styles */
     .edit-message-box {
       max-width: 600px;
       margin: 20px auto;
@@ -507,6 +509,28 @@
       font-size: 0.9rem;
       color: var(--text-muted);
       text-align: center;
+    }
+
+    /* Form specific styles to match your design */
+    .contact-input {
+      width: 100%;
+      border-radius: 15px;
+      border: 2px solid #eee;
+      padding: 15px;
+      margin-bottom: 15px;
+      font-family: inherit;
+      outline: none;
+    }
+    .contact-textarea {
+      width: 100%;
+      height: 150px;
+      border-radius: 20px;
+      border: 2px solid #eee;
+      padding: 20px;
+      margin-bottom: 20px;
+      font-family: inherit;
+      resize: none;
+      outline: none;
     }
   </style>
 </head>
@@ -535,7 +559,7 @@
 
   <div class="container">
     <section class="about section-scroll reveal" id="about">
-      <img src="1776785704147.jpg" alt="Denmark Sillador">
+      <img src="1775633243126.jpg" alt="Denmark Sillador">
       <h3 style="margin-bottom: 15px; font-weight: 600;">"A work in progress, but always moving forward"</h3>
       <p>Explore and enjoy a collection of who I am and what I create — from my story and projects to videos and images that reflect my journey.</p>
     </section>
@@ -613,7 +637,7 @@
       </div>
 
       <div class="edit-message-box">
-        I enjoy turning simple clips into eye-catching and meaningful video edits. Using Alight Motion, I focus on smooth flow, detailed effects, and creative transitions that make each edit stand out. I have experience in creating presets and sharing them with a growing audience, helping others improve their editing skills as well. My goal is to create content that not only looks good but also connects with viewers through style, timing, and creativity.
+        “I enjoy turning simple clips into eye-catching and meaningful video edits. Using Alight Motion, I focus on smooth flow, detailed effects, and creative transitions that make each edit stand out. I have experience in creating presets and sharing them with a growing audience, helping others improve their editing skills as well. My goal is to create content that not only looks good but also connects with viewers through style, timing, and creativity.”
       </div>
 
       <div style="text-align: center; margin: 40px 0 60px;">
@@ -688,9 +712,11 @@
 
     <section class="feedback reveal" style="background:#fff; color:#000; padding:60px 40px; border-radius:40px; max-width:700px; margin:100px auto; text-align:center;">
       <h2 style="font-weight: 700;">Get In Touch</h2>
-      <form action="https://formspree.io/f/marksillador6@gmail.com" method="POST" id="contact-form">
-        <input type="email" name="email" required style="width:100%; border-radius:15px; border:2px solid #eee; padding:15px; margin-bottom:15px; font-family:inherit;" placeholder="Your Email Address">
-        <textarea name="message" required style="width:100%; height:150px; border-radius:20px; border:2px solid #eee; padding:20px; margin-bottom:20px; font-family:inherit; resize:none;" placeholder="Tell me about your project..."></textarea>
+      <form action="https://formspree.io/f/mlgapprn" method="POST" id="contact-form">
+        <input type="text" name="name" class="contact-input" placeholder="Your Name" required>
+        <input type="email" name="email" class="contact-input" placeholder="Your Email Address" required>
+        <input type="text" name="subject" class="contact-input" placeholder="Subject" required>
+        <textarea name="message" class="contact-textarea" placeholder="What message would you like to send?" required></textarea>
         <button type="submit" style="background:#000; color:#fff; padding:15px 40px; border-radius:50px; border:none; cursor:pointer; text-transform:uppercase; font-weight:700; width: 100%;">Send Message</button>
       </form>
       <p id="form-status" style="margin-top: 15px; font-weight: 600;"></p>
@@ -721,6 +747,7 @@
   </footer>
 
   <script>
+    // REVEAL ANIMATION
     function reveal() {
       var reveals = document.querySelectorAll(".reveal");
       reveals.forEach(el => {
@@ -730,6 +757,7 @@
     window.addEventListener("scroll", reveal);
     reveal();
 
+    // UNIVERSAL SLIDESHOW LOGIC
     const slideStates = {
       'cert-slideshow': { current: 0, class: 'cert-slide', dots: 'cert-dots' },
       'edit-slideshow': { current: 0, class: 'edit-slide', dots: 'edit-dots' }
@@ -758,6 +786,7 @@
 
     Object.keys(slideStates).forEach(id => updateSlideshow(id));
 
+    // LIGHTBOX
     const lightbox = document.getElementById('lightbox-overlay');
     const lightboxImg = document.getElementById('lightbox-img');
     document.querySelectorAll('.slide-item img, .about img').forEach(img => {
@@ -768,6 +797,7 @@
     });
     lightbox.onclick = () => lightbox.style.display = 'none';
 
+    // NAV ACTIVE STATE
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -779,6 +809,7 @@
     }, { threshold: 0.5 });
     document.querySelectorAll('.section-scroll').forEach(s => observer.observe(s));
 
+    // --- CHATBOT LOGIC ---
     const chatBtn = document.getElementById('chat-button');
     const chatWin = document.getElementById('chat-window');
     const chatInput = document.getElementById('chat-input');
@@ -800,11 +831,15 @@
     function sendMessage() {
       const text = chatInput.value.trim();
       if (!text) return;
+
+      // User Message
       const uDiv = document.createElement('div');
       uDiv.className = 'user-msg';
       uDiv.textContent = text;
       chatMessages.appendChild(uDiv);
       chatInput.value = '';
+
+      // Bot Response
       setTimeout(() => {
         const bDiv = document.createElement('div');
         bDiv.className = 'bot-msg';
@@ -817,6 +852,7 @@
     chatSend.onclick = sendMessage;
     chatInput.onkeypress = (e) => { if(e.key === 'Enter') sendMessage(); };
 
+    // --- CONTACT FORM HANDLER ---
     const contactForm = document.getElementById('contact-form');
     const formStatus = document.getElementById('form-status');
 
@@ -824,6 +860,7 @@
       e.preventDefault();
       const data = new FormData(contactForm);
       formStatus.textContent = "Sending...";
+      
       fetch(contactForm.action, {
         method: 'POST',
         body: data,
