@@ -233,7 +233,7 @@
       transition: var(--transition);
     }
 
-    /* ===== SLIDESHOW STYLES ===== */
+    /* ===== SLIDESHOW STYLES (ENHANCED FOR SWIPE) ===== */
     .slideshow-container {
       max-width: 800px;
       position: relative;
@@ -243,8 +243,12 @@
       border-radius: 30px;
       border: 1px solid rgba(255, 205, 56, 0.1);
       overflow: hidden;
-      touch-action: pan-y;
+      touch-action: pan-y; /* Allows vertical scrolling but captures horizontal swipes */
+      user-select: none;
+      cursor: grab;
     }
+    
+    .slideshow-container:active { cursor: grabbing; }
 
     .slide-item {
       display: none;
@@ -258,6 +262,7 @@
       object-fit: contain;
       border-radius: 20px;
       background: #000;
+      pointer-events: none; /* Prevents image dragging interference */
     }
 
     @keyframes fadeEffect {
@@ -567,7 +572,7 @@
         <h2 class="section-title">Certifications</h2>
       </div>
 
-      <div class="slideshow-container" id="cert-slideshow">
+      <div class="slideshow-container swipeable" id="cert-slideshow">
         <div class="slide-item cert-slide">
           <img src="1775814905809.jpg" alt="Certification 1">
           <div style="color: var(--accent); padding-top: 10px; font-weight: 600;">Certificate 1</div>
@@ -608,7 +613,7 @@
         <h2 class="section-title">Editing Skills</h2>
       </div>
       
-      <div class="slideshow-container" id="edit-slideshow">
+      <div class="slideshow-container swipeable" id="edit-slideshow">
         <div class="slide-item edit-slide">
           <img src="1775634728078.jpg" alt="TikTok edit sample">
           <div style="color: var(--accent); padding-top: 15px; font-weight: 600;">Alight Motion Edits<br><small style="color: #888;">36.8K+ Followers | 2.3M Likes</small></div>
@@ -780,6 +785,46 @@
       slideStates[id].current = n;
       updateSlideshow(id);
     }
+
+    // --- SWIPE GESTURE LOGIC ---
+    let touchstartX = 0;
+    let touchendX = 0;
+
+    function handleGesture(id) {
+      const threshold = 50; // minimum distance for a swipe
+      if (touchendX < touchstartX - threshold) changeSlide(id, 1);  // Swipe Left -> Next
+      if (touchendX > touchstartX + threshold) changeSlide(id, -1); // Swipe Right -> Prev
+    }
+
+    document.querySelectorAll('.slideshow-container.swipeable').forEach(container => {
+      const id = container.id;
+      
+      // Touch Events (Mobile)
+      container.addEventListener('touchstart', e => {
+        touchstartX = e.changedTouches[0].screenX;
+      }, {passive: true});
+
+      container.addEventListener('touchend', e => {
+        touchendX = e.changedTouches[0].screenX;
+        handleGesture(id);
+      }, {passive: true});
+
+      // Mouse Events (PC Swipe Simulation)
+      let isDragging = false;
+      container.addEventListener('mousedown', e => {
+        touchstartX = e.screenX;
+        isDragging = true;
+      });
+
+      container.addEventListener('mouseup', e => {
+        if (!isDragging) return;
+        touchendX = e.screenX;
+        handleGesture(id);
+        isDragging = false;
+      });
+
+      container.addEventListener('mouseleave', () => isDragging = false);
+    });
 
     Object.keys(slideStates).forEach(id => updateSlideshow(id));
 
